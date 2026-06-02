@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FocusRPG | Hồ Sơ Người Dùng</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#0f131f",
+                        "on-secondary-container": "#1e5000",
+                        "surface-bright": "#353946",
+                        "primary": "#93ccff",
+                        "tertiary-container": "#ea7e00",
+                        "outline": "#88929c",
+                        "tertiary-fixed": "#ffdcc4",
+                        "tertiary": "#ffb77f",
+                        "on-tertiary-container": "#502800",
+                        "secondary-fixed": "#87fe45",
+                        "outline-variant": "#3e4851",
+                        "primary-container": "#00a2f3",
+                        "surface-variant": "#303442",
+                        "on-primary": "#003351",
+                        "on-error": "#690005",
+                        "secondary-fixed-dim": "#6be026",
+                        "on-primary-fixed-variant": "#004b73",
+                        "surface-dim": "#0f131f",
+                        "surface-container-lowest": "#0a0e1a",
+                        "on-tertiary-fixed-variant": "#6f3900",
+                        "on-surface": "#dfe2f3",
+                        "inverse-on-surface": "#2c303d",
+                        "on-surface-variant": "#bec7d3",
+                        "primary-fixed": "#cce5ff",
+                        "secondary": "#73e930",
+                        "on-background": "#dfe2f3",
+                        "primary-fixed-dim": "#93ccff",
+                        "surface-container-highest": "#303442",
+                        "on-secondary": "#133800",
+                        "error": "#ffb4ab",
+                        "on-primary-container": "#003554",
+                        "on-secondary-fixed-variant": "#1f5100",
+                        "inverse-surface": "#dfe2f3",
+                        "error-container": "#93000a",
+                        "surface-container-low": "#171b28",
+                        "on-tertiary": "#4e2600",
+                        "on-primary-fixed": "#001d31",
+                        "inverse-primary": "#006397",
+                        "background": "#0f131f",
+                        "surface-tint": "#93ccff",
+                        "on-secondary-fixed": "#082100",
+                        "surface-container-high": "#262a36",
+                        "on-error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#ffb77f",
+                        "surface-container": "#1b1f2c",
+                        "on-tertiary-fixed": "#2f1500",
+                        "secondary-container": "#58cc02"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "24px",
+                        "xl": "64px",
+                        "xs": "4px",
+                        "lg": "40px",
+                        "container-padding-desktop": "32px",
+                        "container-padding-mobile": "16px",
+                        "sm": "12px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Nunito Sans"],
+                        "body-lg": ["Nunito Sans"],
+                        "button": ["Nunito Sans"],
+                        "label-lg": ["Nunito Sans"],
+                        "headline-lg": ["Nunito Sans"],
+                        "display-lg-mobile": ["Nunito Sans"],
+                        "display-lg": ["Nunito Sans"],
+                        "body-md": ["Nunito Sans"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "800"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "button": ["16px", {"lineHeight": "20px", "fontWeight": "800"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "800"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "900"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "900"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Nunito Sans', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .pop-button {
+            transition: all 0.1s ease;
+        }
+        .pop-button:active {
+            transform: translateY(2px);
+        }
+        .card-flat-3d {
+            border-bottom-width: 4px;
+            border-color: rgba(0,0,0,0.25);
+        }
+        .sidebar-active {
+            transform: translateY(2px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+<!-- App Layout Container -->
+<div class="flex max-w-[1440px] mx-auto min-h-screen relative">
+<!-- LEFT COLUMN: SideNavBar -->
+<aside class="fixed left-0 top-0 h-screen w-64 border-r-4 border-black/20 bg-surface-container flex flex-col p-md gap-base z-50">
+<div class="flex items-center gap-sm mb-lg">
+<div class="w-10 h-10 bg-secondary rounded-xl flex items-center justify-center shadow-[0_4px_0_0_rgba(0,0,0,0.2)]">
+<span class="material-symbols-outlined text-on-secondary" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+<div>
+<h1 class="font-display-lg text-[24px] leading-tight font-black text-secondary uppercase tracking-tighter">FocusRPG</h1>
+<p class="font-label-lg text-label-lg text-on-surface-variant/60 leading-none">Level up your focus</p>
+</div>
+</div>
+<nav class="flex flex-col gap-sm">
+<!-- Navigation Items -->
+<a class="flex items-center gap-sm text-on-surface-variant hover:bg-surface-bright rounded-xl p-3 border-b-4 border-transparent transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="font-label-lg text-label-lg">HỌC</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant hover:bg-surface-bright rounded-xl p-3 border-b-4 border-transparent transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="font_download">font_download</span>
+<span class="font-label-lg text-label-lg">CHỮ CÁI</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant hover:bg-surface-bright rounded-xl p-3 border-b-4 border-transparent transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="leaderboard">leaderboard</span>
+<span class="font-label-lg text-label-lg">BẢNG XẾP HẠNG</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant hover:bg-surface-bright rounded-xl p-3 border-b-4 border-transparent transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="task_alt">task_alt</span>
+<span class="font-label-lg text-label-lg">NHIỆM VỤ</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant hover:bg-surface-bright rounded-xl p-3 border-b-4 border-transparent transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="store">store</span>
+<span class="font-label-lg text-label-lg">CỬA HÀNG</span>
+</a>
+<!-- Active Item: HỒ SƠ -->
+<a class="flex items-center gap-sm bg-secondary-container text-on-secondary-container border-b-4 border-on-secondary-fixed-variant rounded-xl p-3 translate-y-[2px] shadow-inner" href="#">
+<span class="material-symbols-outlined" data-icon="person" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-lg text-label-lg">HỒ SƠ</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant hover:bg-surface-bright rounded-xl p-3 border-b-4 border-transparent transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="more_horiz">more_horiz</span>
+<span class="font-label-lg text-label-lg">XEM THÊM</span>
+</a>
+</nav>
+</aside>
+<!-- CENTER COLUMN: Content Canvas -->
+<main class="ml-64 mr-80 flex-1 p-lg overflow-y-auto">
+<!-- Profile Banner & Avatar -->
+<div class="relative mb-xl">
+<div class="h-48 w-full bg-surface-container-high rounded-3xl border-b-4 border-black/20 flex items-center justify-center relative overflow-hidden">
+<!-- Banner Background Pattern -->
+<div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#dfe2f3 1px, transparent 1px); background-size: 20px 20px;"></div>
+</div>
+<!-- Avatar -->
+<div class="absolute -bottom-12 left-md group">
+<div class="w-32 h-32 rounded-full border-8 border-surface bg-surface-bright overflow-hidden shadow-lg relative">
+<img alt="Henry" class="w-full h-full object-cover" data-alt="A cute, high-fidelity chibi-style character avatar for a gamified app. The character has soft, rounded features, large expressive eyes, and modern stylish clothing in a vibrant slime green and slate blue palette. The background of the circular portrait is a clean, minimalist soft gray, maintaining a professional yet playful RPG aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiIcZrqBjissZ0lmZIA-nyKbvY-D82bJ6mJ8J8rkNI357xJbE9pTlH96D2fG23jtsxJE-e-xpFn4FlMqvERx_Z3xMMIPdJqpy3HR0LV8W7sdE-uv-zKqRVVpJeHEn4EJQQdCjQE1hk4b-Jwgc7rhRgwtY71KRBbjDLnmXt6oDSWm2e-D1-yXq5MXgjUuJ6U1f9lR6QiXv_nTGYIAjippDKnm5DoMpcMX6jPFoiJt9h-XaP4HoI2y18Lm7WqEZ6cwJTNoD4Vu3LjqdO"/>
+<button class="absolute bottom-0 right-0 bg-primary text-on-primary p-1.5 rounded-full border-4 border-surface pop-button shadow-md">
+<span class="material-symbols-outlined text-[16px]" data-icon="edit">edit</span>
+</button>
+</div>
+</div>
+<!-- Desktop Action Button -->
+<div class="absolute -bottom-4 right-0">
+<button class="px-md py-sm bg-surface-bright border-b-4 border-black/30 rounded-2xl font-button text-button hover:bg-surface-variant transition-all active:translate-y-1 active:border-b-0">
+                        CHỈNH SỬA HỒ SƠ
+                    </button>
+</div>
+</div>
+<!-- User Info -->
+<div class="mt-16 mb-lg">
+<div class="flex items-center gap-sm mb-xs">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Henry</h2>
+<div class="flex gap-xs">
+<span class="px-2 py-0.5 bg-primary/10 text-primary text-[12px] font-bold rounded-lg border border-primary/20">🇺🇸</span>
+<span class="px-2 py-0.5 bg-secondary/10 text-secondary text-[12px] font-bold rounded-lg border border-secondary/20">🎵</span>
+<span class="px-2 py-0.5 bg-tertiary/10 text-tertiary text-[12px] font-bold rounded-lg border border-tertiary/20">👑</span>
+</div>
+</div>
+<p class="font-body-md text-on-surface-variant mb-base">@NgoQuoc7</p>
+<div class="flex items-center gap-md text-on-surface-variant font-label-lg mb-md">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+<span>Đã tham gia tháng 4 năm 2024</span>
+</div>
+<div class="flex gap-sm">
+<span class="hover:underline cursor-pointer"><strong class="text-on-surface">0</strong> Đang theo dõi</span>
+<span class="hover:underline cursor-pointer"><strong class="text-on-surface">0</strong> Người theo dõi</span>
+</div>
+</div>
+</div>
+<hr class="border-outline-variant/30 mb-lg"/>
+<!-- Statistics Grid -->
+<section class="mb-xl">
+<h3 class="font-headline-md text-headline-md mb-md">Thống kê</h3>
+<div class="grid grid-cols-2 gap-md">
+<!-- Card 1 -->
+<div class="bg-surface-container p-md rounded-3xl border-2 border-outline-variant/40 flex items-center gap-md relative overflow-hidden group">
+<div class="w-12 h-12 flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-[40px]" data-icon="local_fire_department" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+</div>
+<div>
+<p class="font-headline-md text-headline-md text-on-surface">53</p>
+<p class="font-label-lg text-on-surface-variant uppercase tracking-wider text-[12px]">Ngày streak</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container p-md rounded-3xl border-2 border-outline-variant/40 flex items-center gap-md">
+<div class="w-12 h-12 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[40px]" data-icon="bolt" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+<div>
+<p class="font-headline-md text-headline-md text-on-surface">5083</p>
+<p class="font-label-lg text-on-surface-variant uppercase tracking-wider text-[12px]">Tổng điểm KN</p>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container p-md rounded-3xl border-2 border-outline-variant/40 flex items-center gap-md relative">
+<div class="w-12 h-12 flex items-center justify-center text-[#FF79C6]">
+<span class="material-symbols-outlined text-[40px]" data-icon="diamond" style="font-variation-settings: 'FILL' 1;">diamond</span>
+</div>
+<div>
+<p class="font-headline-md text-headline-md text-on-surface">Ngọc Trai</p>
+<p class="font-label-lg text-on-surface-variant uppercase tracking-wider text-[12px]">Giải đấu hiện tại</p>
+</div>
+<div class="absolute top-3 right-3 bg-[#FF79C6] text-white text-[10px] font-black px-2 py-0.5 rounded-lg shadow-sm">TUẦN 1</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container p-md rounded-3xl border-2 border-outline-variant/40 flex items-center gap-md">
+<div class="w-12 h-12 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[40px]" data-icon="emoji_events" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
+</div>
+<div>
+<p class="font-headline-md text-headline-md text-on-surface">3</p>
+<p class="font-label-lg text-on-surface-variant uppercase tracking-wider text-[12px]">Số lần đạt top 3</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Achievements Section -->
+<section>
+<div class="flex justify-between items-center mb-md">
+<h3 class="font-headline-md text-headline-md">Thành tích</h3>
+<a class="font-button text-primary hover:text-primary-container text-[14px]" href="#">XEM TẤT CẢ</a>
+</div>
+<div class="flex flex-col gap-sm">
+<!-- Achievement Row 1 -->
+<div class="bg-surface-container p-md rounded-3xl border-2 border-outline-variant/40 flex items-center gap-md">
+<div class="w-16 h-16 bg-error/10 rounded-2xl flex items-center justify-center text-error border-b-4 border-error/20">
+<span class="material-symbols-outlined text-[40px]" data-icon="local_fire_department">local_fire_department</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-end mb-xs">
+<h4 class="font-body-lg text-on-surface">Lửa rừng</h4>
+<span class="text-[12px] font-bold text-on-surface-variant">53/75</span>
+</div>
+<div class="h-4 w-full bg-surface-dim rounded-full overflow-hidden border border-outline-variant/20">
+<div class="h-full bg-error transition-all duration-500 shadow-[0_0_8px_rgba(255,180,171,0.5)]" style="width: 70.6%"></div>
+</div>
+<p class="text-[14px] text-on-surface-variant mt-xs">Đạt chuỗi 75 ngày streak</p>
+</div>
+</div>
+<!-- Achievement Row 2 -->
+<div class="bg-surface-container p-md rounded-3xl border-2 border-outline-variant/40 flex items-center gap-md">
+<div class="w-16 h-16 bg-secondary/10 rounded-2xl flex items-center justify-center text-secondary border-b-4 border-secondary/20">
+<span class="material-symbols-outlined text-[40px]" data-icon="auto_fix_high">auto_fix_high</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-end mb-xs">
+<h4 class="font-body-lg text-on-surface">Cao nhân</h4>
+<span class="text-[12px] font-bold text-on-surface-variant">5083/7500</span>
+</div>
+<div class="h-4 w-full bg-surface-dim rounded-full overflow-hidden border border-outline-variant/20">
+<div class="h-full bg-secondary transition-all duration-500 shadow-[0_0_8px_rgba(115,233,48,0.5)]" style="width: 67.7%"></div>
+</div>
+<p class="text-[14px] text-on-surface-variant mt-xs">Tổng điểm KN</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- RIGHT COLUMN: Stats & Social -->
+<aside class="fixed right-0 top-0 h-screen w-80 bg-surface flex flex-col p-md gap-md border-l-4 border-black/10 overflow-y-auto">
+<!-- Game Status Header -->
+<div class="flex items-center justify-between p-sm bg-surface-container/50 rounded-2xl border-2 border-outline-variant/20 mb-md">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="font-bold text-on-surface">53</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">diamond</span>
+<span class="font-bold text-on-surface">2027</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="font-bold text-on-surface">5</span>
+</div>
+</div>
+<!-- Social Widget -->
+<div class="bg-surface-container rounded-3xl border-2 border-outline-variant/40 overflow-hidden">
+<div class="flex border-b border-outline-variant/20">
+<button class="flex-1 py-3 text-[14px] font-black text-on-surface border-b-2 border-primary">ĐANG THEO DÕI</button>
+<button class="flex-1 py-3 text-[14px] font-black text-on-surface-variant hover:bg-surface-bright">NGƯỜI THEO DÕI</button>
+</div>
+<div class="p-md text-center">
+<div class="w-32 h-32 mx-auto mb-md opacity-80">
+<img alt="Friends" data-alt="A stylized, flat-pop digital illustration of two cheerful cartoon characters high-fiving. One character is a vibrant green slime creature and the other is a small, heroic adventurer with a blue cape. The art style uses thick black outlines and bold, saturated colors against a dark slate background, evoking a sense of camaraderie and game-based social interaction." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOEqp0M5Wb4ySbK7b6YcEc1wYRNHJTchYEfJ7iFMK82L-B5XA0v1uQ0ufo3oHaa8kswG8j8om-z1j0eFGldfuZCo31A2vsUhuEh98XmKpvEQu2QW2gpCB8EgmbXeeiKWKzrqSNH_vHPc6q4wtG3ez7VCrgMV2dkcDDd4W5QuHNVaMPsr6UD80dhd08FwerNq__Anzqd-DcjUaEInmQMUzm7gUXvAfF8GwntnvY0Zwdwjcnv7QTWWVPeCf1tSIYkpnLyMIn-nLKW_Pc"/>
+</div>
+<p class="text-[16px] font-body-md text-on-surface-variant mb-md">
+                        Kết nối bạn bè giúp học vui và hiệu quả hơn.
+                    </p>
+</div>
+</div>
+<!-- Friends Actions -->
+<div class="flex flex-col gap-sm">
+<button class="flex items-center justify-between p-md bg-surface-container rounded-2xl border-b-4 border-black/30 hover:bg-surface-bright transition-all active:translate-y-1 active:border-b-0 group">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">person_search</span>
+<span class="font-button text-on-surface">TÌM BẠN BÈ</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:translate-x-1 transition-transform">chevron_right</span>
+</button>
+<button class="flex items-center justify-between p-md bg-surface-container rounded-2xl border-b-4 border-black/30 hover:bg-surface-bright transition-all active:translate-y-1 active:border-b-0 group">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary">mail</span>
+<span class="font-button text-on-surface">MỜI BẠN BÈ</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:translate-x-1 transition-transform">chevron_right</span>
+</button>
+</div>
+<!-- Footer Metadata -->
+<div class="mt-auto pt-lg">
+<div class="flex flex-wrap gap-x-md gap-y-xs text-[12px] font-bold text-on-surface-variant/50 uppercase tracking-widest">
+<a class="hover:text-on-surface" href="#">Giới thiệu</a>
+<a class="hover:text-on-surface" href="#">Trường học</a>
+<a class="hover:text-on-surface" href="#">Hiệu quả</a>
+<a class="hover:text-on-surface" href="#">Cửa hàng</a>
+<a class="hover:text-on-surface" href="#">Điều khoản</a>
+<a class="hover:text-on-surface" href="#">Bảo mật</a>
+</div>
+<p class="text-[12px] text-on-surface-variant/30 mt-sm font-medium">© 2024 FocusRPG. All rights reserved.</p>
+</div>
+</aside>
+</div>
+<!-- Micro-interaction Scripts -->
+<script>
+        document.querySelectorAll('button, a').forEach(elem => {
+            elem.addEventListener('mousedown', () => {
+                elem.style.transform = 'scale(0.98)';
+            });
+            elem.addEventListener('mouseup', () => {
+                elem.style.transform = '';
+            });
+            elem.addEventListener('mouseleave', () => {
+                elem.style.transform = '';
+            });
+        });
+
+        // Simple animation for progress bars on load
+        window.addEventListener('load', () => {
+            const bars = document.querySelectorAll('.h-full');
+            bars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 100);
+            });
+        });
+    </script>
+</body></html>

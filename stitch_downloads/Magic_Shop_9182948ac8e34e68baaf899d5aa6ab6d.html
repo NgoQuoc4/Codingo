@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cửa Hàng | FocusRPG</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#004b73",
+                        "surface": "#0f131f",
+                        "secondary-fixed": "#87fe45",
+                        "on-primary-container": "#003554",
+                        "on-background": "#dfe2f3",
+                        "on-tertiary-fixed-variant": "#6f3900",
+                        "outline-variant": "#3e4851",
+                        "on-tertiary-container": "#502800",
+                        "on-error": "#690005",
+                        "surface-bright": "#353946",
+                        "on-tertiary": "#4e2600",
+                        "primary-fixed": "#cce5ff",
+                        "error-container": "#93000a",
+                        "surface-dim": "#0f131f",
+                        "surface-container-highest": "#303442",
+                        "on-secondary-fixed": "#082100",
+                        "on-secondary": "#133800",
+                        "tertiary": "#ffb77f",
+                        "on-secondary-fixed-variant": "#1f5100",
+                        "inverse-primary": "#006397",
+                        "surface-container": "#1b1f2c",
+                        "primary-fixed-dim": "#93ccff",
+                        "on-primary": "#003351",
+                        "on-primary-fixed": "#001d31",
+                        "primary-container": "#00a2f3",
+                        "on-error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#2f1500",
+                        "error": "#ffb4ab",
+                        "surface-variant": "#303442",
+                        "inverse-on-surface": "#2c303d",
+                        "outline": "#88929c",
+                        "secondary-fixed-dim": "#6be026",
+                        "primary": "#93ccff",
+                        "on-surface": "#dfe2f3",
+                        "inverse-surface": "#dfe2f3",
+                        "tertiary-container": "#ea7e00",
+                        "surface-container-lowest": "#0a0e1a",
+                        "secondary": "#73e930",
+                        "tertiary-fixed-dim": "#ffb77f",
+                        "on-surface-variant": "#bec7d3",
+                        "tertiary-fixed": "#ffdcc4",
+                        "surface-container-high": "#262a36",
+                        "secondary-container": "#58cc02",
+                        "background": "#0f131f",
+                        "on-secondary-container": "#1e5000",
+                        "surface-tint": "#93ccff",
+                        "surface-container-low": "#171b28"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "3xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-padding-mobile": "16px",
+                        "xl": "64px",
+                        "sm": "12px",
+                        "xs": "4px",
+                        "container-padding-desktop": "32px",
+                        "base": "8px",
+                        "md": "24px",
+                        "lg": "40px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Nunito Sans"],
+                        "label-lg": ["Nunito Sans"],
+                        "body-lg": ["Nunito Sans"],
+                        "button": ["Nunito Sans"],
+                        "headline-md": ["Nunito Sans"],
+                        "headline-lg": ["Nunito Sans"],
+                        "display-lg": ["Nunito Sans"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "button": ["16px", {"lineHeight": "20px", "fontWeight": "800"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "800"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "800"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "900"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #303442; border-radius: 10px; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 600, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
+        .active-3d-button:active { transform: translateY(2px); border-bottom-width: 2px; }
+        .flat-3d-button { border-bottom-width: 4px; transition: all 0.1s ease; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md overflow-hidden h-screen">
+<div class="flex h-full w-full max-w-[1600px] mx-auto">
+<!-- LEFT COLUMN: SIDE NAV -->
+<aside class="w-64 h-full hidden md:flex flex-col p-md gap-md border-r-4 border-black/20 bg-surface">
+<div class="mb-lg">
+<span class="font-headline-lg text-headline-lg font-black text-secondary">FocusRPG</span>
+<p class="text-on-surface-variant font-label-lg">Level 12 Warrior</p>
+</div>
+<nav class="flex flex-col gap-sm flex-1">
+<a class="flex items-center gap-sm text-on-surface-variant hover:bg-surface-container rounded-xl p-md transition-all hover:translate-y-[-2px]" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="font-button">Học</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant hover:bg-surface-container rounded-xl p-md transition-all hover:translate-y-[-2px]" href="#">
+<span class="material-symbols-outlined">abc</span>
+<span class="font-button">Chữ Cái</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant hover:bg-surface-container rounded-xl p-md transition-all hover:translate-y-[-2px]" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-button">Bảng Xếp Hạng</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant hover:bg-surface-container rounded-xl p-md transition-all hover:translate-y-[-2px]" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-button">Nhiệm Vụ</span>
+</a>
+<!-- Active Tab -->
+<a class="flex items-center gap-sm bg-secondary-container text-on-secondary-container rounded-xl border-b-4 border-on-secondary-fixed-variant p-md translate-y-0.5 transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">shopping_bag</span>
+<span class="font-button">Cửa Hàng</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant hover:bg-surface-container rounded-xl p-md transition-all hover:translate-y-[-2px]" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-button">Hồ Sơ</span>
+</a>
+</nav>
+<button class="mt-auto flat-3d-button active-3d-button bg-primary-container text-on-primary-container font-button py-md rounded-2xl border-b-4 border-on-primary-fixed-variant w-full uppercase">
+                Bắt Đầu Học
+            </button>
+</aside>
+<!-- CENTER COLUMN: MAIN SHOP AREA -->
+<main class="flex-1 overflow-y-auto custom-scrollbar px-lg py-md">
+<!-- Mobile TopBar -->
+<div class="md:hidden flex justify-between items-center h-16 w-full fixed top-0 left-0 px-container-padding-mobile z-50 bg-surface-container-high border-b-4 border-black/20">
+<span class="font-headline-md text-headline-md font-black text-primary">FocusRPG</span>
+<div class="flex items-center gap-base">
+<span class="flex items-center gap-xs font-label-lg text-error"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">favorite</span> 5</span>
+<span class="flex items-center gap-xs font-label-lg text-tertiary-container"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">diamond</span> 2027</span>
+</div>
+</div>
+<div class="mt-16 md:mt-0 space-y-lg max-w-2xl mx-auto">
+<!-- SUPER BANNER -->
+<section class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#8E2DE2] to-[#4A00E0] p-lg border-b-4 border-black/30">
+<div class="flex flex-col md:flex-row items-center gap-md">
+<div class="w-32 h-32 flex-shrink-0 bg-white/20 rounded-full flex items-center justify-center">
+<img alt="Mascot" class="w-20 h-20" data-alt="A cute, stylized robotic owl mascot with glowing blue eyes and metallic armor, wearing a tiny wizard hat. The owl is floating in a joyful pose against a cosmic, deep purple space background with floating magical focus crystals and soft nebulae." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjWPiq_E3h8EZnIRWe2gQhZqK-a_XsDBozi4wCzGR6-GsJ3jijw89rMsA6CA-CUhXPvzWz9Gfdw23FDLuUPswI5X3qSwnk_n9BALNaWLg_MctsT48mSkvmasX2MJlxA3TLx-Dfm6NibjsS32owjTCkGZy3bnt1Ai_QqjqjLDB8wRrKIyFMQZeif8-MAXaxGWo0LLufB6okb4GHLuX3BB5yiLIsKAyfxuYqMAlsStykDAhQHkm_PklxExAMA089gc7InvdugPAQKChF"/>
+</div>
+<div class="flex-1 space-y-sm text-center md:text-left">
+<span class="inline-block bg-white text-[#4A00E0] px-sm py-xs rounded-full font-button text-xs tracking-widest uppercase">SUPER</span>
+<h2 class="font-headline-md text-white leading-tight">Bắt đầu ngay 1 tuần dùng thử miễn phí...</h2>
+<p class="text-white/80 font-body-md">Mở khóa toàn bộ tính năng cao cấp và đặc quyền độc quyền.</p>
+</div>
+</div>
+<button class="mt-md w-full bg-white text-on-surface font-button py-md rounded-2xl border-b-4 border-gray-300 flat-3d-button active-3d-button uppercase text-lg tracking-wider">
+                        Bắt Đầu 7 Ngày Dùng Thử Miễn Phí
+                    </button>
+</section>
+<!-- Trái tim Section -->
+<section class="space-y-md">
+<h3 class="font-headline-md text-on-surface">Trái tim</h3>
+<div class="space-y-sm">
+<!-- Item 1 -->
+<div class="bg-surface-container rounded-3xl p-md border-b-4 border-black/20 flex items-center gap-md">
+<div class="w-16 h-16 flex items-center justify-center bg-error/10 rounded-2xl">
+<span class="material-symbols-outlined text-4xl text-error" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+<div class="flex-1">
+<h4 class="font-body-lg text-on-surface">Hồi phục Trái tim</h4>
+<p class="text-on-surface-variant font-body-md">Lấp đầy trái tim để tiếp tục học tập.</p>
+</div>
+<button class="bg-surface-variant text-outline font-button px-lg py-sm rounded-xl border-b-4 border-black/10 cursor-not-allowed uppercase" disabled="">
+                                ĐẦY ĐỦ
+                            </button>
+</div>
+<!-- Item 2 -->
+<div class="bg-surface-container rounded-3xl p-md border-b-4 border-black/20 flex items-center gap-md">
+<div class="w-16 h-16 flex items-center justify-center bg-tertiary/10 rounded-2xl">
+<span class="material-symbols-outlined text-4xl text-tertiary" style="font-variation-settings: 'FILL' 1;">all_inclusive</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center gap-sm">
+<h4 class="font-body-lg text-on-surface">Trái tim vô hạn</h4>
+<span class="text-[#FF4BBD] font-label-lg uppercase">Thử miễn phí</span>
+</div>
+<p class="text-on-surface-variant font-body-md">Không bao giờ lo lắng về việc hết mạng.</p>
+</div>
+<button class="bg-secondary text-on-secondary font-button px-lg py-sm rounded-xl border-b-4 border-on-secondary-fixed-variant flat-3d-button active-3d-button uppercase">
+                                Nhận
+                            </button>
+</div>
+</div>
+</section>
+<!-- Tăng sức mạnh Section -->
+<section class="space-y-md">
+<h3 class="font-headline-md text-on-surface">Tăng sức mạnh</h3>
+<div class="bg-surface-container rounded-3xl p-md border-b-4 border-black/20 space-y-md">
+<div class="flex items-center gap-md">
+<div class="w-16 h-16 flex items-center justify-center bg-primary-container/10 rounded-2xl">
+<span class="material-symbols-outlined text-4xl text-primary-container" style="font-variation-settings: 'FILL' 1;">ac_unit</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<h4 class="font-body-lg text-on-surface">Streak Freeze</h4>
+<span class="bg-primary/20 text-primary-fixed px-sm py-xs rounded-full font-label-lg uppercase">Đã trang bị 2 / 2</span>
+</div>
+<p class="text-on-surface-variant font-body-md mt-xs">Streak Freeze cho phép bạn bỏ lỡ một ngày luyện tập mà không bị mất chuỗi Streak của mình.</p>
+</div>
+</div>
+<button class="w-full bg-surface-variant text-outline font-button py-md rounded-2xl border-b-4 border-black/10 cursor-not-allowed uppercase tracking-wide" disabled="">
+                            Đã được trang bị
+                        </button>
+</div>
+</section>
+</div>
+</main>
+<!-- RIGHT COLUMN: WIDGET PANEL -->
+<aside class="w-[360px] h-full hidden lg:flex flex-col p-md gap-md border-l-4 border-black/20 bg-surface">
+<!-- Stats Header -->
+<div class="flex items-center justify-between bg-surface-container rounded-3xl p-sm border-b-4 border-black/20 mb-sm">
+<div class="flex items-center gap-xs px-sm py-xs hover:bg-surface-container-high rounded-xl cursor-pointer transition-colors">
+<span class="material-symbols-outlined text-orange-500" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="font-button text-orange-500">53</span>
+</div>
+<div class="flex items-center gap-xs px-sm py-xs hover:bg-surface-container-high rounded-xl cursor-pointer transition-colors">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">diamond</span>
+<span class="font-button text-tertiary">2027</span>
+</div>
+<div class="flex items-center gap-xs px-sm py-xs hover:bg-surface-container-high rounded-xl cursor-pointer transition-colors">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="font-button text-error">5</span>
+</div>
+</div>
+<!-- Widget 1: League -->
+<div class="bg-surface-container rounded-3xl p-md border-b-4 border-black/20 space-y-sm">
+<div class="flex items-center justify-between">
+<h4 class="font-headline-md text-on-surface text-lg">Giải đấu Ngọc Trai</h4>
+<a class="text-primary font-button text-sm uppercase" href="#">Xem bảng</a>
+</div>
+<div class="bg-error-container/20 rounded-2xl p-md border-2 border-error/30 flex gap-md items-start">
+<span class="material-symbols-outlined text-error text-3xl">warning</span>
+<div>
+<p class="font-button text-on-surface">Bạn đã đạt vị trí thứ 11</p>
+<p class="text-error font-body-md font-bold">Bạn đã vào nhóm xuống hạng!</p>
+</div>
+</div>
+</div>
+<!-- Widget 2: Daily Quests -->
+<div class="bg-surface-container rounded-3xl p-md border-b-4 border-black/20 space-y-md">
+<div class="flex items-center justify-between">
+<h4 class="font-headline-md text-on-surface text-lg">Nhiệm vụ hàng ngày</h4>
+<a class="text-primary font-button text-sm uppercase" href="#">Xem tất cả</a>
+</div>
+<div class="space-y-sm">
+<!-- Quest 1 -->
+<div class="space-y-xs">
+<div class="flex justify-between font-label-lg">
+<span class="text-on-surface">Kiếm 20 EXP</span>
+<span class="text-secondary">20/20</span>
+</div>
+<div class="w-full h-4 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-full"></div>
+</div>
+</div>
+<!-- Quest 2 -->
+<div class="space-y-xs">
+<div class="flex justify-between font-label-lg">
+<span class="text-on-surface">Hoàn thành 1 bài học</span>
+<span class="text-outline">0/1</span>
+</div>
+<div class="w-full h-4 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-0"></div>
+</div>
+</div>
+<!-- Quest 3 -->
+<div class="space-y-xs">
+<div class="flex justify-between font-label-lg">
+<span class="text-on-surface">Combo 15 câu đúng</span>
+<span class="text-tertiary">3/15</span>
+</div>
+<div class="w-full h-4 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-tertiary-container w-[20%]"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Widget 3: Sponsors -->
+<div class="bg-surface-container rounded-3xl p-md border-b-4 border-black/20">
+<h4 class="font-headline-md text-on-surface text-lg mb-md">Đối tác đồng hành</h4>
+<div class="grid grid-cols-2 gap-sm">
+<div class="aspect-video bg-white rounded-xl flex items-center justify-center p-sm">
+<img alt="Sponsor 1" class="opacity-80" data-alt="A clean, minimalist corporate logo for a technology company named 'TECH CORP' featuring a stylized abstract hexagonal icon in deep cobalt blue. The logo is displayed on a pure white background in a professional, modern aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwOHh_1wSwfO5ieoEazmGofk19-8-D_g-M1LMm9Y2chlpJ9eEeH-IryP2GtLZUDRqQV2o-B9DCCRvPjgRmr1PnNvj_ACwSatguvMpP8GlAwkvOTH6xZhI14So_85uDStjQNWZ4nKEEWHwkjvBKyrF8pFXLW7lk_3otx-se_PHeuH2QUMou9HnyQO7Cx_aVgf-S2lVBqjZimNmXZwrqSjik2Lw5REJcuzJygVGduukEj4STKxRrvO2QqB33xbwWuNmP4zx1N99xGo4v"/>
+</div>
+<div class="aspect-video bg-white rounded-xl flex items-center justify-center p-sm">
+<img alt="Sponsor 2" class="opacity-80" data-alt="A playful, education-focused brand logo for 'STUDY GO' featuring a stylized green leaf merging into an open book symbol. The visual style is friendly and modern, with vibrant emerald green tones against a clean white background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpNB11BgOKkpJe29jpbf6wciFGUDegFi80t_lTjBzM9grMDNg45boLnHJiajfEMZqcBWKMUsablzjZzT4yDkn7mrJnxd8b7txILX3yLPCAUt3zdS3WirqZGncQl3LhXMPegsfxOzEi6xTpFIN2wInfaEeSPJTYMOdpxBh71EY6RLmaqZFzumcRiR9xL7xJ1o9ClFVH1PjZmAucwbS12uReoVpVOMOb1JPM9YUuldB_tKq8RvTtU53NdCRPOL9bZ7cX446FrpQQgmUF"/>
+</div>
+<div class="aspect-video bg-white rounded-xl flex items-center justify-center p-sm">
+<img alt="Sponsor 3" class="opacity-80" data-alt="A sleek productivity app logo for 'FOCUS HUB' centered around a stylized target icon with a checkmark in the middle. The color palette uses professional slate grays and energetic orange accents on a pristine white backdrop." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFxhzjLr68mJdJ3_KMX-EvLbvQzWfNimmmU-lzPNPCky1b2q-S4eSLNYsXQtGeAxZYVzcwg5E75rCGFxduhHi1XzmzM60FUYEbMmsBLeFvYxEK3wlfzFlUgz5FgU09i95BmGEUWkfh0Tw2w5_6bpGFCyo-zOsz7r8XASUph8WKeCqeUOK4_DjGk4-SLzdXAs9L5NcGTFHr1cDbOVBXyqNzcyu8nrph4fu61jjbCeaa21VpalWXIqdy-cvlYThlIYHNb4e_g3f9G5tT"/>
+</div>
+<div class="aspect-video bg-white rounded-xl flex items-center justify-center p-sm">
+<img alt="Sponsor 4" class="opacity-80" data-alt="A gaming-inspired wellness logo for 'GAMER ZEN' featuring a minimalist lotus flower shape integrated with a classic game controller outline. The style is zen and high-tech, using soft lavender and dark charcoal colors on a white background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvbyF_zXSyK04QBTIyLkxzaBU_x6OOhQHg1QoFEsDCIKB4LBEZXlZFRR1c_seGSt4nJee6kZrfhlb2reN4xHR87jyaitkla6yhGDVXustXslNeUiRUk1r0U7DpTPwvw-3pHoke1tohs3D5r0Mxs_HFX3MJl7ovopmVwqzpKY4xT1zBMm2Y4j8xf5_cpUGNESWgQ88NTtrRx9HXk6YuzEZXy-cbezDPIxFU1k3MZFbt-SkL7lNW1bTElDo0d1DFR0e8aayIMLY_9lQ9"/>
+</div>
+</div>
+</div>
+</aside>
+</div>
+<!-- Mobile Bottom Nav -->
+<div class="md:hidden fixed bottom-0 left-0 w-full bg-surface-container-high h-20 flex items-center justify-around px-md z-50 border-t-4 border-black/10">
+<a class="flex flex-col items-center gap-xs text-on-surface-variant" href="#">
+<span class="material-symbols-outlined text-2xl">school</span>
+<span class="text-[10px] font-bold uppercase">Học</span>
+</a>
+<a class="flex flex-col items-center gap-xs text-on-surface-variant" href="#">
+<span class="material-symbols-outlined text-2xl">leaderboard</span>
+<span class="text-[10px] font-bold uppercase">BXH</span>
+</a>
+<a class="flex flex-col items-center gap-xs text-secondary font-bold" href="#">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">shopping_bag</span>
+<span class="text-[10px] uppercase">Cửa Hàng</span>
+</a>
+<a class="flex flex-col items-center gap-xs text-on-surface-variant" href="#">
+<span class="material-symbols-outlined text-2xl">person</span>
+<span class="text-[10px] font-bold uppercase">Hồ Sơ</span>
+</a>
+</div>
+<script>
+        // Simple interactive click effect for 3D buttons
+        document.querySelectorAll('.active-3d-button').forEach(btn => {
+            btn.addEventListener('mousedown', () => {
+                btn.classList.add('translate-y-0.5');
+            });
+            btn.addEventListener('mouseup', () => {
+                btn.classList.remove('translate-y-0.5');
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.classList.remove('translate-y-0.5');
+            });
+        });
+    </script>
+</body></html>

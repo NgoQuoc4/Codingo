@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FocusRPG - Phonetics Training</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 40;
+        }
+        .press-effect:active {
+            transform: translateY(2px);
+            border-bottom-width: 2px !important;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f131f;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1b1f2c;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #303442;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#58cc02",
+                        "primary-fixed-dim": "#93ccff",
+                        "surface-bright": "#353946",
+                        "surface-variant": "#303442",
+                        "surface-container-low": "#171b28",
+                        "on-background": "#dfe2f3",
+                        "secondary-fixed-dim": "#6be026",
+                        "on-tertiary-fixed-variant": "#6f3900",
+                        "on-tertiary-container": "#502800",
+                        "on-error-container": "#ffdad6",
+                        "on-error": "#690005",
+                        "on-secondary-container": "#1e5000",
+                        "surface-container-highest": "#303442",
+                        "surface-container": "#1b1f2c",
+                        "primary-container": "#00a2f3",
+                        "on-secondary": "#133800",
+                        "secondary": "#73e930",
+                        "on-surface-variant": "#bec7d3",
+                        "on-primary-fixed-variant": "#004b73",
+                        "tertiary": "#ffb77f",
+                        "surface-dim": "#0f131f",
+                        "on-surface": "#dfe2f3",
+                        "on-secondary-fixed": "#082100",
+                        "tertiary-container": "#ea7e00",
+                        "primary": "#93ccff",
+                        "error-container": "#93000a",
+                        "outline": "#88929c",
+                        "on-tertiary": "#4e2600",
+                        "surface-container-lowest": "#0a0e1a",
+                        "on-tertiary-fixed": "#2f1500",
+                        "inverse-on-surface": "#2c303d",
+                        "inverse-surface": "#dfe2f3",
+                        "surface-container-high": "#262a36",
+                        "background": "#0f131f",
+                        "on-secondary-fixed-variant": "#1f5100",
+                        "inverse-primary": "#006397",
+                        "primary-fixed": "#cce5ff",
+                        "surface": "#0f131f",
+                        "on-primary-fixed": "#001d31",
+                        "secondary-fixed": "#87fe45",
+                        "outline-variant": "#3e4851",
+                        "tertiary-fixed": "#ffdcc4",
+                        "on-primary": "#003351",
+                        "tertiary-fixed-dim": "#ffb77f",
+                        "surface-tint": "#93ccff",
+                        "error": "#ffb4ab",
+                        "on-primary-container": "#003554"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "3xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-padding-desktop": "32px",
+                        "sm": "12px",
+                        "base": "8px",
+                        "md": "24px",
+                        "lg": "40px",
+                        "container-padding-mobile": "16px",
+                        "xs": "4px",
+                        "xl": "64px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Nunito Sans"],
+                        "label-lg": ["Nunito Sans"],
+                        "body-lg": ["Nunito Sans"],
+                        "headline-md": ["Nunito Sans"],
+                        "headline-lg": ["Nunito Sans"],
+                        "display-lg-mobile": ["Nunito Sans"],
+                        "display-lg": ["Nunito Sans"],
+                        "button": ["Nunito Sans"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "800"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "800"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "900"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "900"}],
+                        "button": ["16px", {"lineHeight": "20px", "fontWeight": "800"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen overflow-hidden">
+<div class="flex h-screen overflow-hidden">
+<!-- COLUMN 1: SIDEBAR NAVIGATION -->
+<aside class="fixed left-0 top-0 h-screen w-64 border-r-4 border-black/20 bg-surface-container flex flex-col p-md gap-base z-50">
+<div class="flex items-center gap-sm mb-md px-base">
+<div class="font-display-lg text-display-lg font-black text-secondary uppercase tracking-tighter">FocusRPG</div>
+</div>
+<nav class="flex flex-col gap-sm">
+<!-- Nav Item 1: HỌC -->
+<a class="flex items-center gap-sm text-on-surface-variant hover:bg-surface-variant transition-transform active:scale-95 rounded-xl p-3 border-b-4 border-transparent" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="font-label-lg text-label-lg">HỌC</span>
+</a>
+<!-- Nav Item 2: CHỮ CÁI (ACTIVE) -->
+<a class="flex items-center gap-sm bg-secondary-container text-on-secondary-container border-b-4 border-on-secondary-fixed-variant rounded-xl p-3 translate-y-[2px] transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">font_download</span>
+<span class="font-label-lg text-label-lg">CHỮ CÁI</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant hover:bg-surface-variant transition-transform active:scale-95 rounded-xl p-3 border-b-4 border-transparent" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-label-lg text-label-lg">BẢNG XẾP HẠNG</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant hover:bg-surface-variant transition-transform active:scale-95 rounded-xl p-3 border-b-4 border-transparent" href="#">
+<span class="material-symbols-outlined">task_alt</span>
+<span class="font-label-lg text-label-lg">NHIỆM VỤ</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant hover:bg-surface-variant transition-transform active:scale-95 rounded-xl p-3 border-b-4 border-transparent" href="#">
+<span class="material-symbols-outlined">store</span>
+<span class="font-label-lg text-label-lg">CỬA HÀNG</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant hover:bg-surface-variant transition-transform active:scale-95 rounded-xl p-3 border-b-4 border-transparent" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-lg text-label-lg">HỒ SƠ</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant hover:bg-surface-variant transition-transform active:scale-95 rounded-xl p-3 border-b-4 border-transparent" href="#">
+<span class="material-symbols-outlined">more_horiz</span>
+<span class="font-label-lg text-label-lg">XEM THÊM</span>
+</a>
+</nav>
+</aside>
+<!-- COLUMN 2: CENTER SCROLLABLE CONTENT -->
+<main class="flex-1 ml-64 mr-80 overflow-y-auto px-lg py-xl">
+<header class="text-center mb-xl">
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-xs">Cùng học phát âm tiếng Anh!</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Master individual sounds to unlock perfect fluency.</p>
+<div class="mt-lg flex justify-center">
+<button class="press-effect bg-primary-container text-on-primary-container font-button text-button px-xl py-md rounded-3xl border-b-8 border-on-primary-fixed-variant flex items-center gap-sm shadow-xl hover:brightness-110 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+                        BẮT ĐẦU +10 KN
+                    </button>
+</div>
+</header>
+<!-- Vowels Section -->
+<section class="mb-xl">
+<div class="flex items-center gap-sm mb-md">
+<h2 class="font-headline-md text-headline-md text-on-surface">Vowels</h2>
+<div class="h-1 flex-1 bg-surface-container rounded-full"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<!-- Sound Card 1 -->
+<div class="bg-surface-container p-md rounded-3xl border-b-4 border-black/20 press-effect cursor-pointer group transition-all">
+<div class="flex justify-between items-start mb-sm">
+<span class="font-display-lg-mobile text-display-lg-mobile text-secondary">/iː/</span>
+<span class="material-symbols-outlined text-outline">volume_up</span>
+</div>
+<div class="font-label-lg text-label-lg text-on-surface-variant uppercase mb-md">Sheep</div>
+<div class="h-3 w-full bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full w-4/5 bg-secondary rounded-full"></div>
+</div>
+<div class="text-right font-label-lg text-label-lg mt-xs text-secondary">80%</div>
+</div>
+<!-- Sound Card 2 -->
+<div class="bg-surface-container p-md rounded-3xl border-b-4 border-black/20 press-effect cursor-pointer group transition-all">
+<div class="flex justify-between items-start mb-sm">
+<span class="font-display-lg-mobile text-display-lg-mobile text-secondary">/ɪ/</span>
+<span class="material-symbols-outlined text-outline">volume_up</span>
+</div>
+<div class="font-label-lg text-label-lg text-on-surface-variant uppercase mb-md">Ship</div>
+<div class="h-3 w-full bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full w-2/5 bg-secondary rounded-full"></div>
+</div>
+<div class="text-right font-label-lg text-label-lg mt-xs text-secondary">40%</div>
+</div>
+<!-- Sound Card 3 -->
+<div class="bg-surface-container p-md rounded-3xl border-b-4 border-black/20 press-effect cursor-pointer group transition-all">
+<div class="flex justify-between items-start mb-sm">
+<span class="font-display-lg-mobile text-display-lg-mobile text-secondary">/ʊ/</span>
+<span class="material-symbols-outlined text-outline">volume_up</span>
+</div>
+<div class="font-label-lg text-label-lg text-on-surface-variant uppercase mb-md">Good</div>
+<div class="h-3 w-full bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full w-1/5 bg-secondary rounded-full"></div>
+</div>
+<div class="text-right font-label-lg text-label-lg mt-xs text-secondary">20%</div>
+</div>
+</div>
+</section>
+<!-- Consonants Section -->
+<section>
+<div class="flex items-center gap-sm mb-md">
+<h2 class="font-headline-md text-headline-md text-on-surface">Consonants</h2>
+<div class="h-1 flex-1 bg-surface-container rounded-full"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<!-- Sound Card 4 -->
+<div class="bg-surface-container p-md rounded-3xl border-b-4 border-black/20 press-effect cursor-pointer group transition-all">
+<div class="flex justify-between items-start mb-sm">
+<span class="font-display-lg-mobile text-display-lg-mobile text-primary">/p/</span>
+<span class="material-symbols-outlined text-outline">volume_up</span>
+</div>
+<div class="font-label-lg text-label-lg text-on-surface-variant uppercase mb-md">Pen</div>
+<div class="h-3 w-full bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full w-full bg-primary rounded-full"></div>
+</div>
+<div class="text-right font-label-lg text-label-lg mt-xs text-primary">Mastered</div>
+</div>
+<!-- Sound Card 5 -->
+<div class="bg-surface-container p-md rounded-3xl border-b-4 border-black/20 press-effect cursor-pointer group transition-all opacity-75">
+<div class="flex justify-between items-start mb-sm">
+<span class="font-display-lg-mobile text-display-lg-mobile text-on-surface-variant">/b/</span>
+<span class="material-symbols-outlined text-outline">lock</span>
+</div>
+<div class="font-label-lg text-label-lg text-on-surface-variant uppercase mb-md">Bad</div>
+<div class="h-3 w-full bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full w-0 bg-primary rounded-full"></div>
+</div>
+<div class="text-right font-label-lg text-label-lg mt-xs text-on-surface-variant">Locked</div>
+</div>
+<!-- Sound Card 6 -->
+<div class="bg-surface-container p-md rounded-3xl border-b-4 border-black/20 press-effect cursor-pointer group transition-all opacity-75">
+<div class="flex justify-between items-start mb-sm">
+<span class="font-display-lg-mobile text-display-lg-mobile text-on-surface-variant">/t/</span>
+<span class="material-symbols-outlined text-outline">lock</span>
+</div>
+<div class="font-label-lg text-label-lg text-on-surface-variant uppercase mb-md">Tea</div>
+<div class="h-3 w-full bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full w-0 bg-primary rounded-full"></div>
+</div>
+<div class="text-right font-label-lg text-label-lg mt-xs text-on-surface-variant">Locked</div>
+</div>
+</div>
+</section>
+</main>
+<!-- COLUMN 3: STATUS WIDGETS -->
+<aside class="fixed right-0 top-0 h-screen w-80 bg-background border-l-4 border-black/20 flex flex-col p-md gap-md overflow-y-auto">
+<!-- Top Stats Bar -->
+<div class="flex justify-between items-center bg-surface-container p-sm rounded-3xl border-b-4 border-black/20">
+<button class="flex items-center gap-xs px-2 py-1 rounded-xl hover:bg-surface-variant transition-all">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="font-button text-button text-on-surface">15</span>
+</button>
+<button class="flex items-center gap-xs px-2 py-1 rounded-xl hover:bg-surface-variant transition-all">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">diamond</span>
+<span class="font-button text-button text-on-surface">420</span>
+</button>
+<button class="flex items-center gap-xs px-2 py-1 rounded-xl hover:bg-surface-variant transition-all">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="font-button text-button text-on-surface">5</span>
+</button>
+</div>
+<!-- Language Picker -->
+<div class="bg-surface-container p-md rounded-3xl border-b-4 border-black/20 flex items-center justify-between">
+<div class="flex items-center gap-sm">
+<img alt="US Flag" class="w-8 h-6 rounded-md object-cover shadow-sm" data-alt="A clean, flat illustration of the United States flag rendered as a tactile UI element with rounded corners and a subtle drop shadow. The style is minimalist and consistent with a high-end mobile application interface, placed against a dark slate background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUH7PtO1P1c2hfSCNbEmYs-2BRIyUurLDm85Oe7cydWSv1T-GO_xgBmat6QsDh3qHvphldFvWQ1bTS1CZ1UZLLCnq8mS4SnZ5_z0ANy4B_ohj2eRgBvTCF2T7EFvAaejYMSv0poRTL0TbDqBtSSUIoI8KoBSmT7vso5YxAsQ04znmHg469KGFcB6weXW2erypgQRFMtGTefwT2OJKyxixUejKOWKoAlBq41WweeCXQJP6HcjeNlniEL6EkTAzBWXZ0OQz112v-MYov"/>
+<span class="font-button text-button">English</span>
+</div>
+<span class="material-symbols-outlined text-outline">expand_more</span>
+</div>
+<!-- Leaderboard Unlock Card -->
+<div class="bg-surface-container-high p-md rounded-3xl border-b-4 border-black/40 relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 opacity-20 group-hover:rotate-12 transition-transform">
+<span class="material-symbols-outlined text-[80px] text-tertiary" style="font-variation-settings: 'FILL' 1;">leaderboard</span>
+</div>
+<h3 class="font-headline-md text-[20px] text-on-surface mb-xs relative z-10">Mở khoá Giải đấu!</h3>
+<p class="font-body-md text-on-surface-variant text-sm mb-md relative z-10">Hoàn thành thêm 3 bài học để tham gia tranh tài cùng bạn bè.</p>
+<div class="h-2 w-full bg-surface-dim rounded-full overflow-hidden mb-sm">
+<div class="h-full w-2/3 bg-tertiary rounded-full"></div>
+</div>
+<div class="text-right font-label-lg text-tertiary">7/10 bài học</div>
+</div>
+<!-- Daily Quests -->
+<div class="bg-surface-container p-md rounded-3xl border-b-4 border-black/20">
+<div class="flex justify-between items-center mb-md">
+<h3 class="font-button text-button text-on-surface">Nhiệm vụ hằng ngày</h3>
+<a class="text-primary text-sm font-bold" href="#">XEM TẤT CẢ</a>
+</div>
+<div class="space-y-md">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary text-[32px]">bolt</span>
+<div class="flex-1">
+<div class="font-label-lg text-on-surface">Kiếm 50 KN</div>
+<div class="h-2 w-full bg-surface-variant rounded-full mt-1">
+<div class="h-full w-1/2 bg-secondary rounded-full"></div>
+</div>
+</div>
+<span class="font-label-lg text-outline">25/50</span>
+</div>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-tertiary text-[32px]">history</span>
+<div class="flex-1">
+<div class="font-label-lg text-on-surface">Học 15 phút</div>
+<div class="h-2 w-full bg-surface-variant rounded-full mt-1">
+<div class="h-full w-full bg-tertiary rounded-full"></div>
+</div>
+</div>
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+</div>
+<!-- Profile & Settings Group -->
+<div class="mt-auto grid grid-cols-2 gap-sm">
+<button class="bg-surface-variant p-md rounded-3xl border-b-4 border-black/20 press-effect flex flex-col items-center gap-xs">
+<span class="material-symbols-outlined text-on-surface">settings</span>
+<span class="font-label-lg text-xs">CÀI ĐẶT</span>
+</button>
+<button class="bg-surface-variant p-md rounded-3xl border-b-4 border-black/20 press-effect flex flex-col items-center gap-xs">
+<span class="material-symbols-outlined text-on-surface">help</span>
+<span class="font-label-lg text-xs">HỖ TRỢ</span>
+</button>
+</div>
+<!-- User Brief -->
+<div class="flex items-center gap-md p-sm">
+<div class="w-12 h-12 rounded-full border-2 border-secondary p-1 bg-surface-bright">
+<img alt="Profile" class="w-full h-full rounded-full" data-alt="A stylized 2D avatar of a friendly character with a modern, clean artistic style suitable for a gamified educational platform. The avatar features vibrant colors and simple geometric shapes, reflecting the high-engagement aesthetic of the FocusRPG world." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfxe18j8JTFU85zMmX1wKjy05lPhiDnZc_mFY4pWftlDESWIkSOH72gUYbvf6S8Z2gvmzWnYyx3QPjN1WSP6glhbxOleLI7oW0yecEy2UnRF8hPLOjjT3nqmGpPkHsA5tgLG52a17yJAJPfcO0v17s8N2eyQ2b1SL2EMrTcbd4SmDTyKADFVBiPMPiLN9DfZRmM3_98HaR_im9a2Ktbxma88BuSyXeO0zGmPQOyRfZi-9N3e3RO4PEUp5n33V_87O64bSSHXQqildw"/>
+</div>
+<div class="flex-1 overflow-hidden">
+<div class="font-button text-button truncate">FocusWarrior_23</div>
+<div class="font-label-lg text-xs text-outline">Hạng Vàng</div>
+</div>
+<span class="material-symbols-outlined text-outline">more_vert</span>
+</div>
+</aside>
+</div>
+<!-- Floating Atmosphere Elements -->
+<div class="fixed inset-0 pointer-events-none z-[-1] opacity-20">
+<div class="absolute top-20 left-1/4 w-64 h-64 bg-secondary/10 blur-[120px] rounded-full"></div>
+<div class="absolute bottom-20 right-1/4 w-96 h-96 bg-primary/10 blur-[150px] rounded-full"></div>
+</div>
+<script>
+        // Simple micro-interactions for tactile feedback
+        document.querySelectorAll('.press-effect').forEach(btn => {
+            btn.addEventListener('mousedown', () => {
+                btn.style.transform = 'translateY(2px)';
+            });
+            btn.addEventListener('mouseup', () => {
+                btn.style.transform = 'translateY(0px)';
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translateY(0px)';
+            });
+        });
+
+        // Toggle sound card highlight
+        document.querySelectorAll('main section div.grid > div').forEach(card => {
+            card.addEventListener('click', function() {
+                if(this.classList.contains('opacity-75')) return;
+                
+                // Play sound effect animation
+                this.classList.add('ring-4', 'ring-secondary/30', 'scale-[0.98]');
+                setTimeout(() => {
+                    this.classList.remove('ring-4', 'ring-secondary/30', 'scale-[0.98]');
+                }, 200);
+            });
+        });
+    </script>
+</body></html>

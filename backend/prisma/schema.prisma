@@ -1,0 +1,85 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id                   String     @id @default(auto()) @map("_id") @db.ObjectId //user
+  username             String     @unique //username
+  email                String     @unique //email
+  password             String //password
+  xp                   Int        @default(0) //kinh nghiệm
+  hearts               Int        @default(5) //máu
+  lastHeartReset       DateTime   @default(now()) //lần reset máu cuối cùng
+  streak               Int        @default(0) //streak
+  lastActive           DateTime   @default(now()) //lần hoạt động cuối cùng
+  avatar               String? //ảnh đại diện
+  soundEffects         Boolean    @default(true) //hiệu ứng âm thanh
+  animations           Boolean    @default(true) //hiệu ứng
+  motivationalMessages Boolean    @default(true) //tin nhắn động lực
+  listeningExercises   Boolean    @default(true) //bài tập nghe
+  darkMode             String     @default("dark") //chế độ tối
+  role                 String     @default("user") //vai trò
+  progress             Progress[] //tiến độ
+  createdAt            DateTime   @default(now()) //ngày tạo
+  updatedAt            DateTime   @updatedAt //ngày cập nhật
+}
+
+type Exercise {
+  type          String //loại câu hỏi
+  question      String //câu hỏi
+  options       String[] //các lựa chọn
+  correctAnswer Json //đáp án đúng
+}
+
+type Lesson {
+  id        String     @map("_id") //id
+  title     String //tiêu đề
+  exercises Exercise[] //bài tập
+}
+
+type Chapter {
+  id      String   @map("_id") //id
+  title   String //tiêu đề
+  lessons Lesson[] //bài học
+}
+
+model Practice {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId //id
+  title       String //tiêu đề
+  language    String //ngôn ngữ
+  description String    @default("") //mô tả
+  chapters    Chapter[] //các chương
+  createdAt   DateTime  @default(now()) //ngày tạo
+  updatedAt   DateTime  @updatedAt //ngày cập nhật
+}
+
+model Course {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId //id
+  title     String //tiêu đề
+  category  String //thể loại
+  tag       String //thẻ
+  shortDesc String //mô tả ngắn
+  longDesc  String //mô tả dài
+  code      String //code
+  useCase   String //cách sử dụng
+  createdAt DateTime @default(now()) //ngày tạo
+  updatedAt DateTime @updatedAt //ngày cập nhật
+}
+
+model Progress {
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId //id
+  userId           String   @db.ObjectId //id người dùng
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade) //quan hệ với user
+  practiceId       String   @db.ObjectId //id bài luyện tập
+  completedLessons String[] // Array of completed lesson IDs
+  currentLessonId  String? // Current lesson ID
+  createdAt        DateTime @default(now()) //ngày tạo
+  updatedAt        DateTime @updatedAt //ngày cập nhật
+
+  @@unique([userId, practiceId]) //đảm bảo mỗi người dùng chỉ có 1 progress cho mỗi bài luyện tập
+}

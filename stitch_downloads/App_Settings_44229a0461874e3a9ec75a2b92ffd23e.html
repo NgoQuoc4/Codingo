@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FocusRPG - Cài đặt riêng</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200..1000;1,200..1000&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary": "#93ccff",
+                      "surface-variant": "#303442",
+                      "on-secondary": "#133800",
+                      "on-primary-fixed-variant": "#004b73",
+                      "tertiary-container": "#ea7e00",
+                      "outline": "#88929c",
+                      "surface-bright": "#353946",
+                      "on-background": "#dfe2f3",
+                      "surface-dim": "#0f131f",
+                      "error-container": "#93000a",
+                      "surface-container-lowest": "#0a0e1a",
+                      "on-secondary-container": "#1e5000",
+                      "tertiary-fixed": "#ffdcc4",
+                      "on-tertiary-fixed": "#2f1500",
+                      "surface-container-highest": "#303442",
+                      "surface": "#0f131f",
+                      "surface-tint": "#93ccff",
+                      "on-error-container": "#ffdad6",
+                      "inverse-surface": "#dfe2f3",
+                      "primary-container": "#00a2f3",
+                      "error": "#ffb4ab",
+                      "on-tertiary-container": "#502800",
+                      "on-primary-container": "#003554",
+                      "surface-container-high": "#262a36",
+                      "primary-fixed": "#cce5ff",
+                      "surface-container": "#1b1f2c",
+                      "on-secondary-fixed-variant": "#1f5100",
+                      "on-primary-fixed": "#001d31",
+                      "primary-fixed-dim": "#93ccff",
+                      "on-surface": "#dfe2f3",
+                      "on-error": "#690005",
+                      "inverse-primary": "#006397",
+                      "surface-container-low": "#171b28",
+                      "on-tertiary-fixed-variant": "#6f3900",
+                      "on-primary": "#003351",
+                      "secondary-fixed": "#87fe45",
+                      "secondary": "#73e930",
+                      "inverse-on-surface": "#2c303d",
+                      "on-secondary-fixed": "#082100",
+                      "secondary-container": "#58cc02",
+                      "on-tertiary": "#4e2600",
+                      "tertiary-fixed-dim": "#ffb77f",
+                      "tertiary": "#ffb77f",
+                      "on-surface-variant": "#bec7d3",
+                      "outline-variant": "#3e4851",
+                      "secondary-fixed-dim": "#6be026",
+                      "background": "#0f131f"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px",
+                      "3xl": "24px"
+              },
+              "spacing": {
+                      "sm": "12px",
+                      "base": "8px",
+                      "xs": "4px",
+                      "xl": "64px",
+                      "container-padding-mobile": "16px",
+                      "md": "24px",
+                      "lg": "40px",
+                      "container-padding-desktop": "32px"
+              },
+              "fontFamily": {
+                      "display-lg": ["Nunito Sans"],
+                      "body-lg": ["Nunito Sans"],
+                      "headline-md": ["Nunito Sans"],
+                      "display-lg-mobile": ["Nunito Sans"],
+                      "button": ["Nunito Sans"],
+                      "label-lg": ["Nunito Sans"],
+                      "headline-lg": ["Nunito Sans"],
+                      "body-md": ["Nunito Sans"]
+              },
+              "fontSize": {
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "900"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "800"}],
+                      "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "900"}],
+                      "button": ["16px", {"lineHeight": "20px", "fontWeight": "800"}],
+                      "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "800"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body { background-color: #131F24; color: #dfe2f3; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .flat-3d-offset { border-bottom-width: 4px; border-color: rgba(0,0,0,0.25); }
+        .custom-toggle:checked + .toggle-track { background-color: #00A2F3; }
+        .custom-toggle:checked + .toggle-track .toggle-knob { transform: translateX(20px); }
+        .side-nav-border { border-right: 2px solid #334155; }
+        .card-border { border: 2px solid #334155; }
+    </style>
+</head>
+<body class="font-body-md overflow-hidden">
+<div class="flex h-screen w-full">
+<!-- LEFT COLUMN: SideNavBar -->
+<aside class="w-[260px] h-full flex flex-col p-md gap-base bg-[#0F172A] side-nav-border z-50">
+<div class="mb-lg">
+<span class="font-display-lg-mobile text-display-lg-mobile font-black text-primary italic uppercase tracking-tighter">FocusRPG</span>
+</div>
+<nav class="flex flex-col gap-sm">
+<!-- Inactive Navs as per request -->
+<a class="flex items-center gap-sm p-md rounded-xl text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-all group hover:scale-105 active:scale-95" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="font-button text-button uppercase tracking-wider">HỌC</span>
+</a>
+<a class="flex items-center gap-sm p-md rounded-xl text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-all group hover:scale-105 active:scale-95" href="#">
+<span class="material-symbols-outlined">swords</span>
+<span class="font-button text-button uppercase tracking-wider">ĐẤU CỜ</span>
+</a>
+<a class="flex items-center gap-sm p-md rounded-xl text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-all group hover:scale-105 active:scale-95" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-button text-button uppercase tracking-wider">BẢNG XẾP HẠNG</span>
+</a>
+<a class="flex items-center gap-sm p-md rounded-xl text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-all group hover:scale-105 active:scale-95" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-button text-button uppercase tracking-wider">NHIỆM VỤ</span>
+</a>
+<a class="flex items-center gap-sm p-md rounded-xl text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-all group hover:scale-105 active:scale-95" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-button text-button uppercase tracking-wider">CỬA HÀNG</span>
+</a>
+<a class="flex items-center gap-sm p-md rounded-xl text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-all group hover:scale-105 active:scale-95" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-button text-button uppercase tracking-wider">HỒ SƠ</span>
+</a>
+<a class="flex items-center gap-sm p-md rounded-xl text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-all group hover:scale-105 active:scale-95" href="#">
+<span class="material-symbols-outlined">more_horiz</span>
+<span class="font-button text-button uppercase tracking-wider">XEM THÊM</span>
+</a>
+</nav>
+<div class="mt-auto pt-lg">
+<div class="p-md rounded-3xl bg-surface-container card-border flex flex-col gap-xs">
+<div class="flex items-center gap-base">
+<img alt="Avatar" class="w-12 h-12 rounded-full border-2 border-primary" data-alt="A stylized character portrait of a Level 42 Warrior in a high-fantasy RPG game. The character has glowing blue runes on their armor and a determined expression. The background is a dark, atmospheric medieval hall with floating magical particles. Professional digital art style with vibrant saturated colors and sharp cel-shading." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWZc4ogmCJEF1ZtxFseRbgkxF4-qFfQCzUrRg-BTiBEApGZMzNrp2Tf483jNOynHolA9Nkicb28KFGgInnI3X-o0732lS7LWY1hPcaCptiJlYylt6tTX2XOiuwe9S7kciOaa2xPa1cIU-ZPqo-q7o00zWTw43uVALWMOlVNZ-T_cp9Cj2q3W9vz-TBzChZkLAEzKIs-PEz_TO7ywBc0_PwX2ZCwAWe_iiwFU3t4Y9NjVb6zMJQk9vy6_9UIwBlRen5D5iymCp2JHIl"/>
+<div>
+<p class="font-button text-primary text-sm uppercase">Level 42 Warrior</p>
+<p class="text-[10px] text-on-surface-variant">1,250 XP to Next Level</p>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- MAIN CONTENT AREA (Center & Right Combined) -->
+<main class="flex-1 overflow-y-auto bg-[#131F24] p-lg flex justify-center">
+<div class="w-full max-w-6xl grid grid-cols-12 gap-lg">
+<!-- CENTER COLUMN: Cài đặt riêng -->
+<section class="col-span-8 flex flex-col gap-lg">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-md">Cài đặt riêng</h1>
+<!-- Section: Cài đặt trải nghiệm học -->
+<div class="card-border bg-surface-container rounded-3xl overflow-hidden">
+<div class="p-md border-b border-outline-variant/30">
+<h2 class="font-headline-md text-headline-md text-on-surface">Cài đặt trải nghiệm học</h2>
+</div>
+<!-- Toggle Rows -->
+<div class="flex flex-col">
+<!-- Row 1 -->
+<div class="flex items-center justify-between p-md border-b border-outline-variant/20">
+<span class="font-body-lg text-body-lg">Hiệu ứng âm thanh</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only custom-toggle" type="checkbox"/>
+<div class="w-12 h-6 bg-surface-variant rounded-full transition-colors toggle-track relative">
+<div class="absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform toggle-knob shadow-sm"></div>
+</div>
+</label>
+</div>
+<!-- Row 2 -->
+<div class="flex items-center justify-between p-md border-b border-outline-variant/20">
+<span class="font-body-lg text-body-lg">Hiệu ứng hoạt hình</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only custom-toggle" type="checkbox"/>
+<div class="w-12 h-6 bg-surface-variant rounded-full transition-colors toggle-track relative">
+<div class="absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform toggle-knob shadow-sm"></div>
+</div>
+</label>
+</div>
+<!-- Row 3 -->
+<div class="flex items-center justify-between p-md border-b border-outline-variant/20">
+<span class="font-body-lg text-body-lg">Thông báo khích lệ</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only custom-toggle" type="checkbox"/>
+<div class="w-12 h-6 bg-surface-variant rounded-full transition-colors toggle-track relative">
+<div class="absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform toggle-knob shadow-sm"></div>
+</div>
+</label>
+</div>
+<!-- Row 4 -->
+<div class="flex items-center justify-between p-md">
+<span class="font-body-lg text-body-lg">Bài tập nghe</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only custom-toggle" type="checkbox"/>
+<div class="w-12 h-6 bg-surface-variant rounded-full transition-colors toggle-track relative">
+<div class="absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform toggle-knob shadow-sm"></div>
+</div>
+</label>
+</div>
+</div>
+</div>
+<!-- Section: Giao diện -->
+<div class="card-border bg-surface-container rounded-3xl mt-lg overflow-hidden">
+<div class="p-md border-b border-outline-variant/30">
+<h2 class="font-headline-md text-headline-md text-on-surface">Giao diện</h2>
+</div>
+<div class="p-md flex items-center justify-between">
+<span class="font-body-lg text-body-lg">Chế độ tối</span>
+<div class="relative min-w-[240px]">
+<select class="w-full appearance-none bg-[#0F172A] card-border rounded-xl px-md py-sm font-button text-on-surface uppercase tracking-wider text-sm pr-10 cursor-pointer hover:bg-surface-bright transition-colors">
+<option>MẶC ĐỊNH THEO HỆ THỐNG</option>
+<option>BẬT</option>
+<option>TẮT</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- RIGHT COLUMN: Settings Navigation Panel -->
+<aside class="col-span-4 flex flex-col gap-md">
+<!-- Index Card -->
+<div class="card-border bg-surface-container rounded-3xl p-md flex flex-col gap-base">
+<a class="p-sm font-button text-on-surface-variant hover:text-on-surface hover:bg-surface-variant rounded-xl transition-all" href="#">Tài khoản</a>
+<a class="p-sm font-button text-on-surface bg-surface-variant rounded-xl border-l-4 border-primary" href="#">Cài đặt riêng</a>
+<a class="p-sm font-button text-on-surface-variant hover:text-on-surface hover:bg-surface-variant rounded-xl transition-all" href="#">Hồ sơ</a>
+<a class="p-sm font-button text-on-surface-variant hover:text-on-surface hover:bg-surface-variant rounded-xl transition-all" href="#">Thông báo</a>
+<a class="p-sm font-button text-on-surface-variant hover:text-on-surface hover:bg-surface-variant rounded-xl transition-all" href="#">Bảo mật</a>
+</div>
+<!-- Subscription Card -->
+<div class="card-border bg-surface-container rounded-3xl p-md flex flex-col gap-sm group cursor-pointer hover:scale-[1.02] transition-transform">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-headline-md text-on-surface">Gói đăng ký</h3>
+<span class="material-symbols-outlined text-primary">diamond</span>
+</div>
+<button class="w-full py-sm rounded-xl bg-tertiary-container text-on-tertiary font-button uppercase flat-3d-offset hover:translate-y-[1px] active:translate-y-[2px] transition-all">
+                            CHỌN GÓI ĐĂNG KÝ
+                        </button>
+</div>
+<!-- Help Card -->
+<div class="card-border bg-surface-container rounded-3xl p-md flex flex-col gap-sm group cursor-pointer hover:scale-[1.02] transition-transform">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-headline-md text-on-surface">Hỗ trợ</h3>
+<span class="material-symbols-outlined text-secondary">help</span>
+</div>
+<a class="flex items-center justify-between p-sm rounded-xl hover:bg-surface-variant text-on-surface-variant hover:text-on-surface" href="#">
+<span class="font-button">Trung tâm trợ giúp</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</a>
+</div>
+<!-- Logout Button -->
+<button class="mt-auto w-full py-md rounded-3xl border-2 border-[#334155] bg-transparent text-primary font-display-lg-mobile text-[18px] font-black uppercase tracking-widest hover:border-error hover:text-error hover:bg-error/10 transition-all active:scale-95">
+                        ĐĂNG XUẤT
+                    </button>
+</aside>
+</div>
+</main>
+</div>
+<!-- Background Atmospheric Effect -->
+<div class="fixed inset-0 pointer-events-none opacity-20 z-0">
+<div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 blur-[120px] rounded-full"></div>
+<div class="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-secondary/10 blur-[150px] rounded-full"></div>
+</div>
+<script>
+        // Micro-interaction for toggle switches
+        const toggles = document.querySelectorAll('.sr-only');
+        toggles.forEach(toggle => {
+            toggle.addEventListener('change', function() {
+                const track = this.nextElementSibling;
+                if (this.checked) {
+                    track.style.backgroundColor = '#00A2F3';
+                } else {
+                    track.style.backgroundColor = '';
+                }
+            });
+        });
+    </script>
+</body></html>

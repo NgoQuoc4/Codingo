@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FocusRPG Lesson UI</title>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Nunito for that rounded, friendly UI feel -->
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&amp;display=swap" rel="stylesheet"/>
+<style data-purpose="custom-configuration">
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-color: #131F24;
+      color: white;
+      overflow: hidden;
+    }
+  </style>
+<style data-purpose="card-styles">
+    /* 3D Press effect and highlights */
+    .option-card {
+      background-color: #131F24;
+      border: 2px solid #374151;
+      border-bottom-width: 4px;
+      transition: all 0.1s ease;
+      cursor: pointer;
+    }
+
+    .option-card:hover {
+      background-color: #1e293b;
+    }
+
+    .option-card.selected {
+      background-color: #1b2d41;
+      border-color: #1cb0f6;
+      border-bottom-color: #1cb0f6;
+      border-bottom-width: 4px;
+      color: #1cb0f6;
+    }
+
+    .option-card:active {
+      border-bottom-width: 2px;
+      transform: translateY(2px);
+    }
+
+    .hotkey-badge {
+      border: 2px solid #374151;
+      color: #374151;
+    }
+
+    .selected .hotkey-badge {
+      border-color: #1cb0f6;
+      color: #1cb0f6;
+    }
+  </style>
+<style data-purpose="footer-buttons">
+    .btn-skip {
+      border: 2px solid #374151;
+      border-bottom-width: 4px;
+      transition: all 0.1s;
+    }
+    .btn-skip:active {
+      border-bottom-width: 2px;
+      transform: translateY(2px);
+    }
+
+    .btn-check {
+      background-color: #374151;
+      color: #4b5563;
+      border-bottom-width: 4px;
+      border-color: #1f2937;
+      cursor: not-allowed;
+    }
+
+    .btn-check.ready {
+      background-color: #58cc02;
+      color: white;
+      border-color: #46a302;
+      cursor: pointer;
+    }
+    .btn-check.ready:active {
+      border-bottom-width: 2px;
+      transform: translateY(2px);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center">
+<!-- BEGIN: Header -->
+<header class="w-full max-w-5xl px-6 py-8 flex items-center gap-6" data-purpose="progress-header">
+<!-- Close Button -->
+<button aria-label="Close lesson" class="text-gray-500 hover:text-white transition-colors">
+<svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="3" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<!-- Progress Bar -->
+<div class="flex-grow h-4 bg-[#374151] rounded-full overflow-hidden">
+<div class="h-full bg-[#58cc02] rounded-full transition-all duration-500" style="width: 65%;">
+<!-- Subtle highlight on progress bar -->
+<div class="h-1.5 w-full bg-white opacity-20 mt-1 ml-2 rounded-full"></div>
+</div>
+</div>
+<!-- Health/Hearts -->
+<div class="flex items-center gap-2 font-black text-[#ff4b4b] text-xl" data-purpose="life-indicator">
+<svg class="h-7 w-7 fill-current" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+</svg>
+<span>5</span>
+</div>
+</header>
+<!-- END: Header -->
+<!-- BEGIN: Main Content -->
+<main class="flex-grow flex flex-col items-center justify-center w-full max-w-4xl px-4 pb-32">
+<!-- Question Section -->
+<div class="w-full mb-10" data-purpose="question-container">
+<div class="flex items-center gap-2 text-[#ce82ff] font-extrabold text-sm mb-2 tracking-widest">
+<div class="p-1 bg-[#ce82ff] rounded-full">
+<svg class="h-4 w-4 text-[#131F24]" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"></path>
+</svg>
+</div>
+        TỪ VỰNG MỚI
+      </div>
+<h1 class="text-3xl font-black tracking-wide">Đâu là "cửa hàng"?</h1>
+</div>
+<!-- Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full" data-purpose="selection-grid" id="options-container">
+<!-- Option 1: Street -->
+<div class="option-card rounded-2xl p-4 flex flex-col items-center justify-between min-h-[220px]" onclick="selectOption(this)">
+<div class="w-full aspect-square flex items-center justify-center mb-4">
+<!-- Placeholder for Street Illustration -->
+<div class="w-32 h-32 bg-green-500 rounded-xl relative overflow-hidden flex items-center justify-center">
+<div class="w-4 h-full bg-gray-700"></div>
+<div class="absolute w-1 h-6 bg-yellow-400 top-4"></div>
+<div class="absolute w-1 h-6 bg-yellow-400 top-14"></div>
+<div class="absolute w-1 h-6 bg-yellow-400 top-24"></div>
+</div>
+</div>
+<div class="w-full flex justify-between items-center px-1">
+<span class="text-lg font-bold">street</span>
+<span class="hotkey-badge rounded-lg w-7 h-7 flex items-center justify-center text-xs font-black">1</span>
+</div>
+</div>
+<!-- Option 2: Museum -->
+<div class="option-card rounded-2xl p-4 flex flex-col items-center justify-between min-h-[220px]" onclick="selectOption(this)">
+<div class="w-full aspect-square flex items-center justify-center mb-4">
+<!-- Placeholder for Museum Illustration -->
+<div class="w-32 h-32 bg-orange-400 rounded-xl relative overflow-hidden flex items-center justify-center">
+<div class="w-24 h-20 bg-white rounded-sm border-2 border-orange-600 p-2 flex items-center justify-center">
+<div class="w-full h-full bg-blue-200 rounded-sm"></div>
+</div>
+<div class="absolute bottom-2 w-12 h-2 bg-orange-800 rounded-full"></div>
+</div>
+</div>
+<div class="w-full flex justify-between items-center px-1">
+<span class="text-lg font-bold">museum</span>
+<span class="hotkey-badge rounded-lg w-7 h-7 flex items-center justify-center text-xs font-black">2</span>
+</div>
+</div>
+<!-- Option 3: Store (Correct) -->
+<div class="option-card rounded-2xl p-4 flex flex-col items-center justify-between min-h-[220px]" onclick="selectOption(this)">
+<div class="w-full aspect-square flex items-center justify-center mb-4">
+<!-- Placeholder for Store Illustration -->
+<div class="w-32 h-32 bg-[#131F24] flex items-center justify-center">
+<!-- Simplified cartoon building icon -->
+<div class="relative">
+<div class="w-24 h-16 bg-[#eab308] rounded-t-lg border-b-4 border-yellow-700"></div>
+<div class="absolute -top-4 left-2 w-20 h-6 bg-yellow-600 rounded-full flex items-center justify-center">
+<div class="w-4 h-4 bg-green-500 rounded-full"></div>
+</div>
+<div class="w-24 h-4 bg-[#854d0e]"></div>
+<div class="flex justify-around px-2">
+<div class="w-4 h-6 bg-blue-300"></div>
+<div class="w-6 h-8 bg-blue-400 border-2 border-white"></div>
+<div class="w-4 h-6 bg-blue-300"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="w-full flex justify-between items-center px-1">
+<span class="text-lg font-bold">store</span>
+<span class="hotkey-badge rounded-lg w-7 h-7 flex items-center justify-center text-xs font-black">3</span>
+</div>
+</div>
+</div>
+</main>
+<!-- END: Main Content -->
+<!-- BEGIN: Footer -->
+<footer class="w-full border-t-2 border-[#374151] py-8 px-6 fixed bottom-0 left-0 bg-[#131F24]" data-purpose="action-footer">
+<div class="max-w-5xl mx-auto flex justify-between items-center">
+<button class="btn-skip px-10 py-3 rounded-2xl font-black text-[#afafaf] hover:bg-[#1e293b]" data-purpose="skip-button">
+        BỎ QUA
+      </button>
+<button class="btn-check px-10 py-3 rounded-2xl font-black" data-purpose="check-button" disabled="" id="check-button">
+        KIỂM TRA
+      </button>
+</div>
+</footer>
+<!-- END: Footer -->
+<!-- BEGIN: Logic Scripts -->
+<script data-purpose="card-logic">
+    function selectOption(element) {
+      // Remove selection from all cards
+      const cards = document.querySelectorAll('.option-card');
+      cards.forEach(card => card.classList.remove('selected'));
+      
+      // Add selection to clicked card
+      element.classList.add('selected');
+      
+      // Enable Check button
+      const checkBtn = document.getElementById('check-button');
+      checkBtn.removeAttribute('disabled');
+      checkBtn.classList.add('ready');
+    }
+
+    // Keyboard support (1, 2, 3)
+    document.addEventListener('keydown', (e) => {
+      const cards = document.querySelectorAll('.option-card');
+      if (e.key === '1') selectOption(cards[0]);
+      if (e.key === '2') selectOption(cards[1]);
+      if (e.key === '3') selectOption(cards[2]);
+    });
+  </script>
+<!-- END: Logic Scripts -->
+</body></html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+        }
+        .filled-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        body {
+            font-family: 'Nunito Sans', sans-serif;
+            background-color: #0F131F;
+            color: #dfe2f3;
+            overflow-x: hidden;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #171b28;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #303442;
+            border-radius: 10px;
+        }
+        .pearl-glow {
+            filter: drop-shadow(0 0 15px rgba(255, 0, 255, 0.4));
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#93ccff",
+                        "primary-fixed": "#cce5ff",
+                        "inverse-on-surface": "#2c303d",
+                        "on-tertiary-fixed": "#2f1500",
+                        "primary": "#93ccff",
+                        "on-background": "#dfe2f3",
+                        "on-surface": "#dfe2f3",
+                        "on-secondary-container": "#1e5000",
+                        "surface-dim": "#0f131f",
+                        "error": "#ffb4ab",
+                        "on-secondary-fixed-variant": "#1f5100",
+                        "on-error": "#690005",
+                        "inverse-primary": "#006397",
+                        "on-primary-fixed-variant": "#004b73",
+                        "surface-container-lowest": "#0a0e1a",
+                        "primary-container": "#00a2f3",
+                        "inverse-surface": "#dfe2f3",
+                        "surface-container-high": "#262a36",
+                        "secondary-container": "#58cc02",
+                        "on-tertiary-fixed-variant": "#6f3900",
+                        "on-secondary": "#133800",
+                        "on-error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#ffb77f",
+                        "secondary-fixed-dim": "#6be026",
+                        "tertiary-fixed": "#ffdcc4",
+                        "tertiary-container": "#ea7e00",
+                        "on-primary": "#003351",
+                        "on-secondary-fixed": "#082100",
+                        "surface-container-low": "#171b28",
+                        "on-primary-container": "#003554",
+                        "outline-variant": "#3e4851",
+                        "background": "#0f131f",
+                        "surface-variant": "#303442",
+                        "on-surface-variant": "#bec7d3",
+                        "error-container": "#93000a",
+                        "surface-container": "#1b1f2c",
+                        "on-tertiary": "#4e2600",
+                        "surface-tint": "#93ccff",
+                        "surface-bright": "#353946",
+                        "surface": "#0f131f",
+                        "secondary-fixed": "#87fe45",
+                        "secondary": "#73e930",
+                        "tertiary": "#ffb77f",
+                        "surface-container-highest": "#303442",
+                        "on-tertiary-container": "#502800",
+                        "on-primary-fixed": "#001d31",
+                        "outline": "#88929c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "24px",
+                        "xs": "4px",
+                        "xl": "64px",
+                        "sm": "12px",
+                        "container-padding-mobile": "16px",
+                        "lg": "40px",
+                        "container-padding-desktop": "32px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "button": ["Nunito Sans"],
+                        "body-lg": ["Nunito Sans"],
+                        "display-lg": ["Nunito Sans"],
+                        "label-lg": ["Nunito Sans"],
+                        "display-lg-mobile": ["Nunito Sans"],
+                        "headline-lg": ["Nunito Sans"],
+                        "body-md": ["Nunito Sans"],
+                        "headline-md": ["Nunito Sans"]
+                    },
+                    "fontSize": {
+                        "button": ["16px", {"lineHeight": "20px", "fontWeight": "800"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "900"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "900"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "800"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "800"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="flex min-h-screen">
+<!-- LEFT COLUMN: SideNavBar -->
+<aside class="fixed left-0 top-0 h-screen w-64 border-r-4 border-black/20 bg-surface-container flex flex-col p-md gap-base z-50">
+<div class="flex items-center gap-sm mb-lg px-xs">
+<img alt="FocusRPG Logo" class="w-10 h-10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCShKcmveaO8ahU9J6-1Ys56pB-Hd3hBdJv-pSheVBTNVXHQ3OSpuVeOC--HwRf7R8cYaQspfVqkq-T4WGFq0yJ2op1eslp-CjDx3Ve80QtQDFcWYnj-9M8YtAUfDJdL4fgQVHP6ek14s7AtC0blxgts1q54KzGC3K2aRPertvw7mdjfrlM2u4hfcF7dp8aFY5Po7QMfD_9PQGL_UdSh5OAsGNnYu8AxPXdTmi-f3Y_7wF4rTJOPLo6zQM-12zsDzJUih-eFtYutsFT"/>
+<div class="flex flex-col">
+<span class="font-display-lg text-[24px] font-black text-secondary uppercase tracking-tighter leading-none">FocusRPG</span>
+<span class="font-label-lg text-on-surface-variant text-[10px] uppercase tracking-[0.2em]">Level up focus</span>
+</div>
+</div>
+<nav class="flex flex-col gap-xs">
+<button class="flex items-center gap-sm text-on-surface-variant hover:bg-surface-bright rounded-xl p-3 border-b-4 border-transparent hover:bg-surface-variant transition-transform active:scale-95 font-label-lg text-label-lg">
+<span class="material-symbols-outlined">school</span>
+<span>HỌC</span>
+</button>
+<button class="flex items-center gap-sm text-on-surface-variant hover:bg-surface-bright rounded-xl p-3 border-b-4 border-transparent hover:bg-surface-variant transition-transform active:scale-95 font-label-lg text-label-lg">
+<span class="material-symbols-outlined">font_download</span>
+<span>CHỮ CÁI</span>
+</button>
+<button class="flex items-center gap-sm bg-secondary-container text-on-secondary-container border-b-4 border-on-secondary-fixed-variant rounded-xl p-3 translate-y-[2px] transition-transform active:scale-95 font-label-lg text-label-lg">
+<span class="material-symbols-outlined filled-icon">leaderboard</span>
+<span>BẢNG XẾP HẠNG</span>
+</button>
+<button class="flex items-center gap-sm text-on-surface-variant hover:bg-surface-bright rounded-xl p-3 border-b-4 border-transparent hover:bg-surface-variant transition-transform active:scale-95 font-label-lg text-label-lg">
+<span class="material-symbols-outlined">task_alt</span>
+<span>NHIỆM VỤ</span>
+</button>
+<button class="flex items-center gap-sm text-on-surface-variant hover:bg-surface-bright rounded-xl p-3 border-b-4 border-transparent hover:bg-surface-variant transition-transform active:scale-95 font-label-lg text-label-lg">
+<span class="material-symbols-outlined">store</span>
+<span>CỬA HÀNG</span>
+</button>
+<button class="flex items-center gap-sm text-on-surface-variant hover:bg-surface-bright rounded-xl p-3 border-b-4 border-transparent hover:bg-surface-variant transition-transform active:scale-95 font-label-lg text-label-lg">
+<span class="material-symbols-outlined">person</span>
+<span>HỒ SƠ</span>
+</button>
+<button class="flex items-center gap-sm text-on-surface-variant hover:bg-surface-bright rounded-xl p-3 border-b-4 border-transparent hover:bg-surface-variant transition-transform active:scale-95 font-label-lg text-label-lg">
+<span class="material-symbols-outlined">more_horiz</span>
+<span>XEM THÊM</span>
+</button>
+</nav>
+</aside>
+<!-- CENTER COLUMN: League Arena -->
+<main class="ml-64 flex-1 min-h-screen px-lg py-md pb-xl">
+<div class="max-w-3xl mx-auto">
+<!-- League Header -->
+<div class="flex flex-col items-center mb-xl">
+<div class="flex items-end justify-center gap-md mb-md">
+<img class="w-16 h-16 opacity-40 grayscale" data-alt="A small bronze shield icon with simple geometric patterns, representing a basic league tier in a flat RPG interface style, deep dark slate background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuACMYhKgUbospGc91rEQSBREG4l3p9gi8Y2UshCcg0WIVo7-102K_zagiB4S4uTQDcAqLUF2Wvpt97QqfzIJqkmVgG1hiP1xZfGUuZRUg_oO7kUQuO2DUQgBURUb4sM8P2QN-4yq4SeQupsu4TQF75ibNMfCnzPJf3oJ8iDw3J04xCxeiCyFfXfaOhSnP3VORAxXzdIEhOB8ii0Hmenbl92v1evdxcgr4aQgkga_R3L6QWBro6X24l-aE6lDrYmVMZCZRk1EEfglLkC"/>
+<img class="w-20 h-20 opacity-60 grayscale" data-alt="A silver shield icon with polished metallic edges and a blue gemstone in the center, representing the intermediate league tier, vibrant and high-contrast." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAJvQ0NrtvwDQCSX7LjJO6mVAsWVFa2hBL4eHtHuR9IEa17j95qyLx1NOrGzrqD5QcUbP0ljH-wylZVWZhh86R0hTYxZ5CHgK0QjhxTx93PnaqauqFyKpN8wRMwYgAQzEYwlWe6TMAh0B5FVIT3xDL40TkAVqsCe1WDaWOr_m0c-LIUkhRUEzPhEQjGY-bHzUqhl9C5iA8AQtOb3cLGpyK2Di9vcrvlcLilmFNhIVu0TeoBT38UOz_jk1eloWUGVj4xfZVwE9DL_dS"/>
+<div class="relative group">
+<div class="absolute -inset-4 bg-magenta-500/20 blur-xl rounded-full pearl-glow"></div>
+<img class="w-32 h-32 relative z-10 pearl-glow transform transition-transform group-hover:scale-110" data-alt="A large, ornate shield glowing with magenta and violet light. The shield features a luminous pearl at its core and sharp, obsidian-like edges. The style is flat-pop skeuomorphism with thick 4px outlines." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBR59mbLwEeBNmJ0svPpD3emaUYdUx4OVZDrJkttznOl1lyJ2FwlL4WRaGN4F4U_LxDxEjZnHGSeuggWbBY8hf7aGl6AufSElCxrepL1lBsJhCUrqTtZvLTZh4f9eIEVFFBk5qFvGPDIZlYq0tSkeS4xuNNnbNTyEUhqsWacj1p3KdMJ9CMrx8fxxzRB9N69VmbhGkr0uPMtIJ_sDfs54NXFMO9dfQnEhjD0kYIPBpqsJmtCgM1t1Toe96FTWIy5WZjW0B6M0EbaKVv"/>
+</div>
+<img class="w-20 h-20 opacity-60 grayscale" data-alt="A gold shield icon with radiant wings and a sunburst pattern, representing an elite league tier, high saturation and bold geometric shapes." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1UZaXHff-rJaFV-jsb6OeCVkUC_wXOm3FQVrim8vkrJtsIm9S23BC-Ru1AtAtyDus_bLcFa7aiYvSeH3BC_YDPa2TyBTt9TqZHjdJNzZ2k9Z1sxIaDBx9kRkoMkNXnZz3uCJhe1fJUGG2NGUlnxoI1xMdicpSzwobTi859-8GhNGbZ3sYOSzXUlQ2-hbYJRlLLoAoxhlTVH5ZyfUDkQkMMUJ0MKcfp-JcdvQFCblw5j5quoDjpQRXJ4rSCAC3E3P6xrR_cUfbu62-"/>
+<img class="w-16 h-16 opacity-40 grayscale" data-alt="An obsidian and ruby shield icon with dragon motifs, representing the champion league tier, dark and powerful aesthetic with sharp edges." src="https://lh3.googleusercontent.com/aida-public/AB6AXuChJjJv4Qrm6GDBqHSYtdyw9njffYdqw8Me2epaK4igXiM4zf-A43QIW4SRWKgQZcIXJY3OURVXbPe5iKqaAEiU2-1cTZz0RSfEM_awky8Xy_TPvSvjDoj52mmAinxlJRXBgtZ8H5gtLXscmJAA4HtSqE3maePGqmlptWcUAYacfZELjRhjkVckWLL9MLXprgi9W0STw5-oI6V_KqnsGlSUHUUNkcaS4W5KCoCckJcQ1XfqGEnawlqN8yyWxbhD_us8mjxDvYT-IjS9"/>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-xs">Giải đấu Ngọc Trai</h1>
+<p class="font-body-md text-on-surface-variant mb-md">Top 9 người dẫn đầu sẽ được thăng hạng!</p>
+<div class="bg-surface-container-high border-b-4 border-black/30 px-md py-sm rounded-2xl flex items-center gap-xs">
+<span class="material-symbols-outlined text-tertiary">schedule</span>
+<span class="font-button text-tertiary">Còn 4 ngày</span>
+</div>
+</div>
+<!-- Leaderboard List -->
+<div class="space-y-sm">
+<!-- Top 1 -->
+<div class="bg-surface-container flex items-center p-md rounded-3xl border-b-4 border-black/20 hover:translate-y-[-2px] transition-transform cursor-pointer">
+<div class="w-10 flex justify-center">
+<img alt="Gold Medal" class="w-8 h-8" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVfPbrRfceeFWU51xlsqpU4TmJBs0cIE_f4TOVNsCWPxujIkxSFtEdEhJyFwf_L5HQo5zmmB643jYw9u2EQ7_GuV2mT82XVO_GpLEkqSm3mEURqhjnEkRX6S09wP-EoIsLZMZBwoQQce-IlKAmRDTMPlW3aZq5Hy_OZ_CgSndTXRJIiQf1WigJneCqRg3ljCL8UfBohgfckiRm6Zo_2m0Fg9vdJQaX1pKQtbxV-2MM3yPagr7LGv5ouTUW1LX1Rd-xKPHBCj9_fexL"/>
+</div>
+<div class="w-16 h-16 rounded-full border-4 border-secondary-container mx-md overflow-hidden bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="A digital portrait of a wizard avatar with a long blue beard and a pointed hat, rendered in a colorful cartoon RPG style with bold outlines and flat shading." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEDybp8woOE-LfDAjhot03ekmooWr-Gq_fXvs44eHotIr54kTj3VFxtUWYKfBw0WKbiRcTya4EShnxJSdlGMwHgVByH0D-8KdDy0XkbMTEZxRl7Z-0-Hw4LwUm8lsdgz1Es4mTPvQePoFu-l3JkESa-9i4apEqho6yjHyHenk7CTG0n2vvtPVmymH8lQ-Gpt952YDBiUYISRiM4Km-gNhbxgZGYR2X2gJ9t_YQCPfrscBwqZOp17cOW5E0zI7ZSY-_tYazppeMnXEt"/>
+</div>
+<div class="flex-1">
+<h3 class="font-headline-md text-[18px] text-on-surface">Linh Phù Thủy</h3>
+<p class="font-label-lg text-on-surface-variant">Huyền thoại tập trung</p>
+</div>
+<div class="text-right">
+<span class="font-display-lg text-[20px] text-secondary">1,240 KN</span>
+</div>
+</div>
+<!-- Top 2 -->
+<div class="bg-surface-container flex items-center p-md rounded-3xl border-b-4 border-black/20 hover:translate-y-[-2px] transition-transform cursor-pointer">
+<div class="w-10 flex justify-center">
+<img alt="Silver Medal" class="w-8 h-8" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBENuka4xhTqouMcPYFkFWRNnZFhpYzmGwJpMkK_70rzbizX1-KjfvDrjS9Fty1BqeGalyxoPUtwtvCt6jeEwWP_c78mEw4NpOYIbKxuQx-KugJMHcAzwYGTyqRyriO0-TwK8B6h-10sG31tI2qGiO-ygcNEsx879tP3af-PKFCPh7AmM6Udq9fS2mmhqyCIpSfWGMj7-MWHwYIVKKZ3RER_G9_83n4rF9uoNFS9fvBjteBKIQ3_vv_tcnIn7fHEZ8G8TJnB29WUh4q"/>
+</div>
+<div class="w-16 h-16 rounded-full border-4 border-primary mx-md overflow-hidden bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="A digital portrait of a fierce warrior avatar with silver armor and a red headband, high-contrast digital art style with chunky outlines and vibrant colors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGEWd9g_sEkH4ENsNqwI37IgkOuhP5K8VGv_uVTVUqFY48YyBhGKqd1WTP8G0Sx_qjjvkCJtg__raSfODO453SvOH6qZupezg7P4hSUsie2UOWPAu3TTq3fLP7x1qvHYee63tKgmoLCQ_DHtV4b1GldMW0BMpCv_xdemHi14FQtOFlZbGvX3RkkewU8DRXN_kRu-ztdn7u6sesLeFZ1pGCnvvzQNj5YpfHF074fAGONHHV4W3Rh6xhUJnLRsQa1lJTp6SCDFWdDbyx"/>
+</div>
+<div class="flex-1">
+<h3 class="font-headline-md text-[18px] text-on-surface">Kiếm Sĩ Solo</h3>
+<p class="font-label-lg text-on-surface-variant">Thành viên từ 2023</p>
+</div>
+<div class="text-right">
+<span class="font-display-lg text-[20px] text-primary">984 KN</span>
+</div>
+</div>
+<!-- Top 3 -->
+<div class="bg-surface-container flex items-center p-md rounded-3xl border-b-4 border-black/20 hover:translate-y-[-2px] transition-transform cursor-pointer">
+<div class="w-10 flex justify-center">
+<img alt="Bronze Medal" class="w-8 h-8" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-ilbfuePbLgeDuX8PXvj0ByTl2PmEe3e6XptM5TD3wb60dZJk2QUtq9v3Ke-i2IM2e7qoHRqPFpeSIeathKf4AN204yokGf9phAiLm-ic6FvmgZkUGaqvriM127b0vMcy-VCUmvQMvjw72xuUBZHUn5ofeRwy3VtecNMDjq0K5_fKpuVzlqpsVnP9mz3YuO6hbivfhgN9Mj0bL0h5ber0viq4j4Z62f1LxhV9ooS_FeHHe997UG04oPzm-IzLLuFR4arWDXH89WQW"/>
+</div>
+<div class="w-16 h-16 rounded-full border-4 border-tertiary mx-md overflow-hidden bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="A stylized elven archer avatar with green hood and glowing eyes, illustrative RPG character design with a modern pop-art aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCb6EvLFy2iOWUIzNOmvGR0o78AS0RVCHBuBwr0R1c9H3C2iIf0wyrps3b3mQ4okctXG3EFVJLPNQr27_a_LQI2g-_5cgA216cMPHqB8vx-i2SkbjE26DsbBuKh-2gveDkOH9hzEXLnD1k2CDhhkXSwYcsUO2ztnZFcyZeAWCWU2W5If44FrKKuiZk51Li4v01bqKYQR2_93bd-0M06arGbg2Emd5SKtGHoi8zS53YtVKz_XfcHVVgSqsQfbGdvHneEl22MOqUTP7WT"/>
+</div>
+<div class="flex-1">
+<h3 class="font-headline-md text-[18px] text-on-surface">Cung Thủ Xanh</h3>
+<p class="font-label-lg text-on-surface-variant">Xạ thủ học tập</p>
+</div>
+<div class="text-right">
+<span class="font-display-lg text-[20px] text-tertiary">856 KN</span>
+</div>
+</div>
+<!-- Promotion Divider -->
+<div class="py-md flex items-center justify-center gap-sm">
+<div class="h-[2px] flex-1 bg-secondary/30"></div>
+<span class="font-label-lg text-secondary uppercase tracking-widest text-[12px] flex items-center gap-xs">
+                        ▲ NHÓM THĂNG HẠNG ▲
+                    </span>
+<div class="h-[2px] flex-1 bg-secondary/30"></div>
+</div>
+<!-- Regular Rows (4-9) -->
+<div class="bg-surface-container-low/50 flex items-center p-md rounded-3xl border-b-4 border-black/10">
+<div class="w-10 text-center font-display-lg text-[20px] text-on-surface-variant">4</div>
+<div class="w-12 h-12 rounded-full border-2 border-outline-variant mx-md overflow-hidden bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="A cute cat-ear wearing student avatar in a vibrant purple hoodie, flat character design with thick outlines and cheerful RPG mood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBFgiS2TyEtMXTacK75E0_DLPdcxwtjgnsKetrYnpPCAxdHqJeCT56LSV2XfMZvOrn58v85Tn2hV65LcTG3U8zM45tt87Dtyb8rlMcNOAy-YS8QSLNKxZYRVp3euW-xf8p8N0MCpGbPFccKoGcXka9ajlKLgIE7mKGq31Rjf3YHJnn3AqHmKQ7EZtDg4tOGoHIrBdLVZ-4PD34dV43G05TvU72wJVVOGI7cPBwEBsalz_cB8rocivXStNaI8iDrpzOnul9Iz1w6HMf"/>
+</div>
+<div class="flex-1">
+<h3 class="font-body-lg text-on-surface">Mèo Chăm Chỉ</h3>
+</div>
+<div class="text-right">
+<span class="font-body-lg text-on-surface-variant">720 KN</span>
+</div>
+</div>
+<!-- User Row (Example of rank 12) -->
+<div class="bg-secondary-container/20 flex items-center p-md rounded-3xl border-4 border-secondary-container/50 scale-[1.02] shadow-xl">
+<div class="w-10 text-center font-display-lg text-[24px] text-secondary">12</div>
+<div class="w-16 h-16 rounded-full border-4 border-secondary mx-md overflow-hidden bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="A cool protagonist avatar with spiky hair and a confident smirk, wearing a futuristic suit with neon green accents, vibrant RPG protagonist style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEfEs8pdhq7AZ_zH8c_CkoTXR-Ur9TR1kHV2YgliMEEKRFO1xi-7WIQ6VlmSHCiyehZVImzJYzEc9L_uXt6HHnyrQnm5UzM5UZ0G91B9rN9L3fJi0Xj27XrMiv-Wcj3coyeDm1z_B4wcowhw4z7QIjky72KIEND40suN3OyFIwPKqPSXAi9B_Jv_jesKnSZExwUiAGziLWKU8kfehvsmRl-AOhm4epBTMHSfPOkWkSzrMEztPO0rtLRu4z8EwmbsZJQv_rBPyFyTeY"/>
+</div>
+<div class="flex-1">
+<h3 class="font-headline-md text-[20px] text-on-surface">Bạn (Anh Hùng)</h3>
+<p class="font-label-lg text-secondary">Bạn đang cố gắng!</p>
+</div>
+<div class="text-right">
+<span class="font-display-lg text-[24px] text-secondary">412 KN</span>
+</div>
+</div>
+<!-- Demotion Divider -->
+<div class="py-md flex items-center justify-center gap-sm mt-xl">
+<div class="h-[2px] flex-1 bg-error/30"></div>
+<span class="font-label-lg text-error uppercase tracking-widest text-[12px] flex items-center gap-xs">
+                        ▼ NHÓM RỚT HẠNG ▼
+                    </span>
+<div class="h-[2px] flex-1 bg-error/30"></div>
+</div>
+</div>
+</div>
+</main>
+<!-- RIGHT COLUMN: Status & Widget -->
+<aside class="w-80 h-screen sticky top-0 p-md flex flex-col gap-lg border-l-4 border-black/10">
+<!-- Status Bar -->
+<div class="flex items-center justify-between bg-surface-container p-sm rounded-2xl border-b-4 border-black/20">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-orange-500 filled-icon">local_fire_department</span>
+<span class="font-button text-on-surface">53</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary-container filled-icon">diamond</span>
+<span class="font-button text-on-surface">2027</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-error filled-icon">favorite</span>
+<span class="font-button text-on-surface">5</span>
+</div>
+</div>
+<!-- Set Status Widget -->
+<div class="bg-surface-container rounded-3xl p-md border-b-4 border-black/20">
+<h2 class="font-headline-md text-[18px] text-on-surface mb-md">Trạng thái của bạn</h2>
+<div class="relative w-24 h-24 mx-auto mb-lg">
+<div class="w-full h-full rounded-3xl overflow-hidden border-4 border-surface-variant bg-surface-dim">
+<img class="w-full h-full object-cover" data-alt="Portrait of the user avatar with focus and determination, surrounded by subtle digital glitch effects in neon green, set against a dark minimalist background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBknpFrjmg1ks6PPJ-u62ByU7ORvnY1FtvzfK9nI6CwbHwneM3PoC17FwKcRe65MYQzkmDk0z2gw2jaXXDzHf8aCeTC0tw8F85GudN2vVWQ6ITarKK7s96zUgF7EQc3cCr28prrHUh5JsR0Xj1m3iVeLOZkBNXjGSgwcfyk63btxR2VClsZ3NxcIFeGrYeEZuCRrRbBpcC-VQsKK6_qC9aEl4kwzqO16dz4Yb2irh0CCFFS0s_hs3hehoV19cxm8ChkzWd3u25pPjl_"/>
+</div>
+<div class="absolute -bottom-2 -right-2 w-10 h-10 bg-error rounded-full flex items-center justify-center border-4 border-surface-container animate-bounce">
+<span class="text-[20px]">💢</span>
+</div>
+</div>
+<div class="grid grid-cols-4 gap-sm">
+<button class="aspect-square flex items-center justify-center bg-surface-container-high rounded-xl border-b-4 border-black/20 hover:scale-110 active:translate-y-[2px] active:border-b-2 transition-all">
+<span class="text-[24px]">😎</span>
+</button>
+<button class="aspect-square flex items-center justify-center bg-surface-container-high rounded-xl border-b-4 border-black/20 hover:scale-110 active:translate-y-[2px] active:border-b-2 transition-all">
+<span class="text-[24px]">🎉</span>
+</button>
+<button class="aspect-square flex items-center justify-center bg-surface-container-high rounded-xl border-b-4 border-black/20 hover:scale-110 active:translate-y-[2px] active:border-b-2 transition-all">
+<span class="text-[24px]">💪</span>
+</button>
+<button class="aspect-square flex items-center justify-center bg-surface-container-high rounded-xl border-b-4 border-black/20 hover:scale-110 active:translate-y-[2px] active:border-b-2 transition-all">
+<span class="text-[24px]">🇻🇳</span>
+</button>
+<button class="aspect-square flex items-center justify-center bg-surface-container-high rounded-xl border-b-4 border-black/20 hover:scale-110 active:translate-y-[2px] active:border-b-2 transition-all">
+<span class="text-[24px]">🔥</span>
+</button>
+<button class="aspect-square flex items-center justify-center bg-surface-container-high rounded-xl border-b-4 border-black/20 hover:scale-110 active:translate-y-[2px] active:border-b-2 transition-all">
+<span class="text-[24px]">😴</span>
+</button>
+<button class="aspect-square flex items-center justify-center bg-surface-container-high rounded-xl border-b-4 border-black/20 hover:scale-110 active:translate-y-[2px] active:border-b-2 transition-all">
+<span class="text-[24px]">📚</span>
+</button>
+<button class="aspect-square flex items-center justify-center bg-surface-container-high rounded-xl border-b-4 border-black/20 hover:scale-110 active:translate-y-[2px] active:border-b-2 transition-all">
+<span class="text-[24px]">🍀</span>
+</button>
+</div>
+<button class="w-full mt-md bg-secondary-container text-on-secondary-container font-button py-3 rounded-2xl border-b-4 border-on-secondary-fixed-variant hover:brightness-110 active:translate-y-[2px] active:border-b-2 transition-all uppercase tracking-wider">
+                Cập nhật
+            </button>
+</div>
+<!-- Promo Banner -->
+<div class="bg-gradient-to-br from-primary-container to-blue-700 rounded-3xl p-md border-b-4 border-black/30 relative overflow-hidden group">
+<div class="relative z-10">
+<h4 class="font-headline-md text-[16px] text-white mb-xs">Gói Premium</h4>
+<p class="font-label-lg text-white/80 mb-md">Mở khóa vật phẩm hiếm &amp; x2 kinh nghiệm.</p>
+<button class="bg-white text-blue-800 font-button px-md py-base rounded-xl border-b-4 border-blue-900/20 active:scale-95 transition-transform">
+                    Nâng cấp ngay
+                </button>
+</div>
+<span class="material-symbols-outlined absolute -bottom-4 -right-4 text-[80px] text-white/10 rotate-12 group-hover:rotate-0 transition-transform filled-icon">workspace_premium</span>
+</div>
+</aside>
+<script>
+        // Micro-interactions for the list items
+        document.querySelectorAll('.leaderboard-row').forEach(row => {
+            row.addEventListener('mousedown', () => {
+                row.style.transform = 'translateY(2px)';
+                row.classList.add('border-b-2');
+                row.classList.remove('border-b-4');
+            });
+            row.addEventListener('mouseup', () => {
+                row.style.transform = 'translateY(0)';
+                row.classList.add('border-b-4');
+                row.classList.remove('border-b-2');
+            });
+        });
+
+        // Simple emoji switching simulation
+        const statusEmoji = document.querySelector('.animate-bounce text');
+        document.querySelectorAll('.grid button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const emoji = btn.querySelector('span').innerText;
+                document.querySelector('.animate-bounce span').innerText = emoji;
+            });
+        });
+    </script>
+</body></html>
