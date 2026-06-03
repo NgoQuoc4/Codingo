@@ -17,7 +17,7 @@ interface TheoryLesson {
   useCase: string;
 }
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || '/api';
 
 export default function PhoneticsPage() {
   const { token, user, loading: authLoading, addXp } = useAuth();

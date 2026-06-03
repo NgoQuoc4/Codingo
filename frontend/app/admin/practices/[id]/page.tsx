@@ -32,7 +32,7 @@ interface Practice {
   chapters: Chapter[];
 }
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || '/api';
 
 // Helper to generate a 24-char hex string to use as MongoDB ObjectId on the client side
 const generateObjectId = (): string => {

@@ -56,7 +56,11 @@ app.get('/health', (req, res) => {
 });
 
 // Server start
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-  console.log(`CORS enabled for FRONTEND_URL: ${FRONTEND_URL}`);
-});
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+    console.log(`CORS enabled for FRONTEND_URL: ${FRONTEND_URL}`);
+  });
+}
+
+export default app;
