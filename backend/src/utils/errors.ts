@@ -1,31 +1,28 @@
-export class AppError extends Error {
-  constructor(public statusCode: number, message: string) {
-    super(message);
-    this.name = this.constructor.name;
-    Error.captureStackTrace(this, this.constructor);
-  }
+export interface AppError {
+  isAppError: true;
+  statusCode: number;
+  message: string;
+  stack?: string;
 }
 
-export class NotFoundError extends AppError {
-  constructor(message: string = 'Resource not found') {
-    super(404, message);
-  }
-}
+export const createAppError = (statusCode: number, message: string): AppError => {
+  const tempError = new Error(message);
+  return {
+    isAppError: true,
+    statusCode,
+    message,
+    stack: tempError.stack,
+  };
+};
 
-export class BadRequestError extends AppError {
-  constructor(message: string = 'Bad request') {
-    super(400, message);
-  }
-}
+export const createNotFoundError = (message: string = 'Resource not found'): AppError => 
+  createAppError(404, message);
 
-export class UnauthorizedError extends AppError {
-  constructor(message: string = 'Unauthorized') {
-    super(401, message);
-  }
-}
+export const createBadRequestError = (message: string = 'Bad request'): AppError => 
+  createAppError(400, message);
 
-export class InternalServerError extends AppError {
-  constructor(message: string = 'Internal server error') {
-    super(500, message);
-  }
-}
+export const createUnauthorizedError = (message: string = 'Unauthorized'): AppError => 
+  createAppError(401, message);
+
+export const createInternalServerError = (message: string = 'Internal server error'): AppError => 
+  createAppError(500, message);

@@ -4,8 +4,9 @@ import * as UserService from '../service/user.service';
 import { AppError } from '../utils/errors';
 
 const handleError = (res: Response, error: unknown, defaultMessage: string) => {
-  if (error instanceof AppError) {
-    return res.status(error.statusCode).json({ message: error.message });
+  if (error && typeof error === 'object' && 'isAppError' in error) {
+    const appErr = error as AppError;
+    return res.status(appErr.statusCode).json({ message: appErr.message });
   }
   const errMsg = error instanceof Error ? error.message : String(error);
   return res.status(500).json({ message: defaultMessage, error: errMsg });

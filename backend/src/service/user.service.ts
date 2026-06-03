@@ -1,5 +1,5 @@
 import { prisma } from '../db';
-import { NotFoundError, BadRequestError } from '../utils/errors';
+import { createNotFoundError, createBadRequestError } from '../utils/errors';
 
 export const getUserProfile = async (userId: string) => {
   const user = await prisma.user.findUnique({
@@ -7,7 +7,7 @@ export const getUserProfile = async (userId: string) => {
   });
 
   if (!user) {
-    throw new NotFoundError('User not found');
+    throw createNotFoundError('User not found');
   }
 
   const { password, ...userObj } = user;
@@ -20,7 +20,7 @@ export const loseHeart = async (userId: string) => {
   });
 
   if (!user) {
-    throw new NotFoundError('User not found');
+    throw createNotFoundError('User not found');
   }
 
   let updatedUser = user;
@@ -53,16 +53,16 @@ export const refillHearts = async (userId: string) => {
   });
 
   if (!user) {
-    throw new NotFoundError('User not found');
+    throw createNotFoundError('User not found');
   }
 
   if (user.hearts === 5) {
-    throw new BadRequestError('Hearts are already full');
+    throw createBadRequestError('Hearts are already full');
   }
 
   const XP_COST = 50;
   if (user.xp < XP_COST) {
-    throw new BadRequestError(`Insufficient XP. Refilling requires ${XP_COST} XP.`);
+    throw createBadRequestError(`Insufficient XP. Refilling requires ${XP_COST} XP.`);
   }
 
   const updatedUser = await prisma.user.update({
@@ -93,7 +93,7 @@ export const updateProfile = async (userId: string, updateFields: {
   });
 
   if (!user) {
-    throw new NotFoundError('User not found');
+    throw createNotFoundError('User not found');
   }
 
   const updateData: any = {};
@@ -104,7 +104,7 @@ export const updateProfile = async (userId: string, updateFields: {
       where: { username: updateFields.username }
     });
     if (existingUser) {
-      throw new BadRequestError('Username is already taken');
+      throw createBadRequestError('Username is already taken');
     }
     updateData.username = updateFields.username;
   }
@@ -114,7 +114,7 @@ export const updateProfile = async (userId: string, updateFields: {
       where: { email: updateFields.email }
     });
     if (existingUser) {
-      throw new BadRequestError('Email is already taken');
+      throw createBadRequestError('Email is already taken');
     }
     updateData.email = updateFields.email;
   }
@@ -141,11 +141,11 @@ export const addXp = async (userId: string, xp: number) => {
   });
 
   if (!user) {
-    throw new NotFoundError('User not found');
+    throw createNotFoundError('User not found');
   }
 
   if (typeof xp !== 'number' || xp <= 0) {
-    throw new BadRequestError('Invalid XP amount');
+    throw createBadRequestError('Invalid XP amount');
   }
 
   const updatedUser = await prisma.user.update({
