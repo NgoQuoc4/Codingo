@@ -7,6 +7,7 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// bảng user
 model User {
   id                   String     @id @default(auto()) @map("_id") @db.ObjectId //user
   username             String     @unique //username
@@ -29,6 +30,7 @@ model User {
   updatedAt            DateTime   @updatedAt //ngày cập nhật
 }
 
+// type câu hỏi
 type Exercise {
   type          String //loại câu hỏi
   question      String //câu hỏi
@@ -36,18 +38,21 @@ type Exercise {
   correctAnswer Json //đáp án đúng
 }
 
+// bảng bài học
 type Lesson {
   id        String     @map("_id") //id
   title     String //tiêu đề
   exercises Exercise[] //bài tập
 }
 
+// bảng chương
 type Chapter {
   id      String   @map("_id") //id
   title   String //tiêu đề
   lessons Lesson[] //bài học
 }
 
+// bảng bài học tổng
 model Practice {
   id          String    @id @default(auto()) @map("_id") @db.ObjectId //id
   title       String //tiêu đề
@@ -58,6 +63,7 @@ model Practice {
   updatedAt   DateTime  @updatedAt //ngày cập nhật
 }
 
+// bảng khóa học
 model Course {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId //id
   title     String //tiêu đề
@@ -71,13 +77,14 @@ model Course {
   updatedAt DateTime @updatedAt //ngày cập nhật
 }
 
+// tiến độ học
 model Progress {
   id               String   @id @default(auto()) @map("_id") @db.ObjectId //id
   userId           String   @db.ObjectId //id người dùng
   user             User     @relation(fields: [userId], references: [id], onDelete: Cascade) //quan hệ với user
   practiceId       String   @db.ObjectId //id bài luyện tập
-  completedLessons String[] // Array of completed lesson IDs
-  currentLessonId  String? // Current lesson ID
+  completedLessons String[] // danh sách bài học đã hoàn thành
+  currentLessonId  String? // ID bài học hiện tại
   createdAt        DateTime @default(now()) //ngày tạo
   updatedAt        DateTime @updatedAt //ngày cập nhật
 

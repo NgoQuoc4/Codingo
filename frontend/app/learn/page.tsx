@@ -27,7 +27,7 @@ interface Course {
   chapters: Chapter[];
 }
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || '/api';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "/api";
 
 export default function LearnPage() {
   const { token, user, loading: authLoading, refreshUser } = useAuth();
@@ -197,9 +197,6 @@ export default function LearnPage() {
   // Daily XP goal calculation
   const dailyXp = user ? user.xp % 20 : 0;
   const dailyProgressPercent = Math.min((dailyXp / 20) * 100, 100);
-
-  console.log("courses", courses);
-  console.log("selectedCourse", selectedCourse);
 
   return (
     <div className="min-h-screen bg-background text-on-background flex flex-col md:flex-row">
