@@ -95,3 +95,14 @@ export const addXp = async (req: AuthRequest, res: Response) => {
     return handleError(res, error, "Error adding XP");
   }
 };
+
+export const getLeaderboard = async (req: AuthRequest, res: Response) => {
+  try {
+    const limit = parseInt(req.query.limit as string) || 10;
+    const standings = await UserService.getLeaderboard(limit);
+    return res.json(standings);
+  } catch (error) {
+    return handleError(res, error, "Error retrieving leaderboard standings");
+  }
+};
+

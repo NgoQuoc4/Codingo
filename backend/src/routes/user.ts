@@ -19,4 +19,7 @@ router.put('/update', authMiddleware, UserController.updateProfile);
 // POST /api/users/add-xp - Add XP to the user when they complete phonetics training
 router.post('/add-xp', authMiddleware, UserController.addXp);
 
+// GET /api/users/leaderboard - Get leaderboard standings
+router.get('/leaderboard', authMiddleware, UserController.getLeaderboard);
+
 export default router;

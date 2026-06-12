@@ -46,6 +46,31 @@ export async function handleHeartsRecovery(user: User): Promise<User> {
   return user;
 }
 
+// Hàm kiểm tra và reset streak về 0 nếu người dùng bỏ học > 1 ngày
+// Được gọi lazy trên mỗi request (tương tự handleHeartsRecovery)
+export async function handleStreakReset(user: User): Promise<User> {
+  if (user.streak > 0) {
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const lastActiveDay = new Date(
+      user.lastActive.getFullYear(),
+      user.lastActive.getMonth(),
+      user.lastActive.getDate()
+    );
+    const diffDays = Math.floor((today.getTime() - lastActiveDay.getTime()) / (1000 * 60 * 60 * 24));
+
+    // Nếu bỏ học > 1 ngày (ít nhất 1 ngày trôi qua không hoạt động) -> Reset streak về 0
+    if (diffDays > 1) {
+      const updatedUser = await prisma.user.update({
+        where: { id: user.id },
+        data: { streak: 0 }
+      });
+      return updatedUser;
+    }
+  }
+  return user;
+}
+
 export async function authMiddleware(
   req: AuthRequest,
   res: Response,
@@ -70,6 +95,9 @@ export async function authMiddleware(
 
     // Apply heart recovery lazily on every request
     user = await handleHeartsRecovery(user);
+
+    // Reset streak về 0 nếu người dùng không học quá 1 ngày
+    user = await handleStreakReset(user);
 
     req.user = user;
     next();

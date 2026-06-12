@@ -315,7 +315,7 @@ export default function LessonPage() {
             <div className="absolute -inset-2 border border-dotted border-amber-300/30 rounded-full animate-spin" style={{ animationDuration: '25s', animationDirection: 'reverse' }}></div>
 
             {/* Main Trophy Circle Container */}
-            <div className="relative w-36 h-36 bg-surface-container border-4 border-yellow-400 rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(234,179,8,0.25)] animate-float">
+            <div className="relative w-36 h-36 bg-surface-container border-4 border-yellow-400 rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(234,179,8,0.25)]">
               <span className="material-symbols-outlined text-7xl text-yellow-400 fill-yellow-400 filter drop-shadow-[0_4px_8px_rgba(0,0,0,0.3)]" style={{ fontVariationSettings: "'FILL' 1" }}>
                 emoji_events
               </span>

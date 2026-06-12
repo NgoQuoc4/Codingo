@@ -1,7 +1,9 @@
 import { prisma } from "../db";
 import { createAppError } from "../utils/errors";
-// lấy ra bài học theo id
+
+// Hàm lấy thông tin chi tiết một bài học kèm danh sách câu hỏi theo ID
 export const getLessonById = async (lessonId: string) => {
+  // Tìm kiếm lộ trình thực hành (practice) có chứa bài học này
   const practice = await prisma.practice.findFirst({
     where: {
       chapters: {
@@ -16,24 +18,25 @@ export const getLessonById = async (lessonId: string) => {
     },
   });
   if (!practice) {
-    throw createAppError(404, "Lesson details not found");
+    throw createAppError(404, "Không tìm thấy thông tin lộ trình của bài học.");
   }
 
+  // Quét qua tất cả các chương và tìm bài học khớp với ID yêu cầu
   const lessonMatch = practice.chapters
     .flatMap((chapter) => {
       return chapter.lessons;
     })
     .find((lesson) => lesson.id === lessonId);
   if (!lessonMatch) {
-    throw createAppError(404, "Lesson details not found");
+    throw createAppError(404, "Không tìm thấy chi tiết bài học.");
   }
 
   return lessonMatch;
 };
 
-// hoàn thành bài học
+// Hàm xử lý hoàn thành bài học (cộng XP, cập nhật streak, lưu tiến trình học tập)
 export const completeLesson = async (userId: string, lessonIdStr: string) => {
-  // tìm user
+  // Tìm kiếm thông tin người dùng hiện tại
   const user = await prisma.user.findUnique({
     where: { id: userId },
   });
@@ -42,7 +45,7 @@ export const completeLesson = async (userId: string, lessonIdStr: string) => {
     throw createAppError(404, "Không tìm thấy thông tin người dùng.");
   }
 
-  // Tìm bài tập thực hành có chứa bài học đã hoàn thành.
+  // Tìm lộ trình luyện tập chứa bài học vừa học xong
   const foundPractice = await prisma.practice.findFirst({
     where: {
       chapters: {
@@ -64,7 +67,7 @@ export const completeLesson = async (userId: string, lessonIdStr: string) => {
     );
   }
 
-  // 1. Cập nhật tiến trình học
+  // 1. Cập nhật hoặc khởi tạo bản ghi tiến độ học tập (Progress)
   let progress = await prisma.progress.findUnique({
     where: {
       userId_practiceId: {
@@ -85,7 +88,7 @@ export const completeLesson = async (userId: string, lessonIdStr: string) => {
     });
   }
 
-  // Tìm bài học tiếp theo trong chuỗi
+  // Xác định bài học tiếp theo cần chuyển đến trong chuỗi danh sách phẳng
   const allLessons = foundPractice.chapters.flatMap(
     (chapter) => chapter.lessons,
   );
@@ -96,7 +99,7 @@ export const completeLesson = async (userId: string, lessonIdStr: string) => {
     nextLessonId = allLessons[currentIdx + 1].id;
   }
 
-  // Cập nhật danh sách các bài học đã hoàn thành nếu chưa có
+  // Thêm ID bài học hiện tại vào danh sách bài học đã hoàn thành
   const updatedCompleted = [...progress.completedLessons];
   if (!updatedCompleted.includes(lessonIdStr)) {
     updatedCompleted.push(lessonIdStr);
@@ -110,7 +113,7 @@ export const completeLesson = async (userId: string, lessonIdStr: string) => {
     },
   });
 
-  // 2. Cập nhật chuỗi ngày học liên tục
+  // 2. Cập nhật chuỗi ngày học liên tục (Streak)
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   const activeDate = new Date(
@@ -118,6 +121,7 @@ export const completeLesson = async (userId: string, lessonIdStr: string) => {
     user.lastActive.getMonth(),
     user.lastActive.getDate(),
   );
+  // So sánh khoảng cách thời gian giữa ngày hoạt động cuối cùng và hôm nay
   const diffTime = today.getTime() - activeDate.getTime();
   const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
@@ -129,14 +133,14 @@ export const completeLesson = async (userId: string, lessonIdStr: string) => {
     newStreak = 1;
     streakUpdated = true;
   } else if (diffDays === 1) {
-    newStreak += 1;
+    newStreak += 1; // Học tiếp liên tục ngày hôm sau -> Tăng streak
     streakUpdated = true;
   } else if (diffDays > 1) {
-    newStreak = 1; // Streak broken, resets to 1 as they complete a lesson today
+    newStreak = 1; // Bị đứt quãng -> Khởi động lại streak bằng 1
     streakUpdated = true;
   }
 
-  // 3. Cộng điểm kinh nghiệm
+  // 3. Cộng điểm kinh nghiệm (+15 XP khi học xong 1 bài)
   const xpReward = 15;
 
   const updatedUser = await prisma.user.update({
