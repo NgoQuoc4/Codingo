@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 import { mockUsers, helper, setSession } from '../../mockDb';
 
 // API POST /api/auth/register - Đăng ký tài khoản mới cho học viên
@@ -14,7 +15,20 @@ export async function POST(req: Request) {
     });
 
     if (proxy.ok) {
-      return NextResponse.json(proxy.data);
+      const data = proxy.data as { user: any; token: string };
+      const response = NextResponse.json({ user: data.user, success: true });
+      
+      // Thiết lập HttpOnly Cookie để lưu trữ token an toàn chống XSS
+      const cookieStore = await cookies();
+      cookieStore.set('token', data.token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        path: '/',
+        maxAge: 60 * 60 * 24 * 7, // Hết hạn sau 7 ngày
+      });
+
+      return response;
     }
 
     // 2. Chế độ dự phòng (Fallback): Xử lý đăng ký giả lập cục bộ
@@ -60,7 +74,19 @@ export async function POST(req: Request) {
     // Ghi nhận trạng thái đăng nhập cho tài khoản này
     setSession(newUser, token);
 
-    return NextResponse.json({ user: newUser, token });
+    const response = NextResponse.json({ user: newUser, success: true });
+    
+    // Thiết lập HttpOnly Cookie cho dữ liệu giả lập
+    const cookieStore = await cookies();
+    cookieStore.set('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/',
+      maxAge: 60 * 60 * 24 * 7, // Hết hạn sau 7 ngày
+    });
+
+    return response;
   } catch (error) {
     console.error('Lỗi trong API /api/auth/register:', error);
     return NextResponse.json({ message: 'Lỗi máy chủ nội bộ' }, { status: 500 });

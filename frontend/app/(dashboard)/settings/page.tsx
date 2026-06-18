@@ -4,25 +4,32 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../../context/AuthContext';
 
+/**
+ * SettingsPage là trang cấu hình tài khoản cá nhân của người dùng.
+ * Cho phép chỉnh sửa thông tin liên hệ (username, email) và bật/tắt các thiết lập học tập (âm thanh, dark mode, hiệu ứng).
+ */
 export default function SettingsPage() {
-  const { token, user, loading: authLoading, logout, updateUser } = useAuth();
+  // Lấy các hàm hỗ trợ và thông tin user từ AuthContext
+  const { user, loading: authLoading, logout, updateUser } = useAuth();
   const router = useRouter();
 
+  // Trả về giao diện trống nếu chưa có thông tin user
   if (!user) return null;
 
-  // Local state for account details
+  // Khai báo các state cục bộ lưu trữ tạm thời thông tin tài khoản để chỉnh sửa trong Form
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [saveMessage, setSaveMessage] = useState<{ text: string; isError: boolean } | null>(null);
   const [savingAccount, setSavingAccount] = useState(false);
 
-  // Synchronize state with user context on load
+  // useEffect đồng bộ dữ liệu người dùng từ AuthContext vào state nội bộ của trang khi tải xong hoặc thay đổi
   useEffect(() => {
     if (user) {
       setUsername(user.username || '');
       setEmail(user.email || '');
     }
   }, [user]);
+
 
 
 

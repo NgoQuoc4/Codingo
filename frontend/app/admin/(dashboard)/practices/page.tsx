@@ -27,7 +27,7 @@ const generateObjectId = (): string => {
 };
 
 export default function PracticesPage() {
-  const { token } = useAuth();
+  const { user } = useAuth();
   const router = useRouter();
 
   // State
@@ -57,12 +57,11 @@ export default function PracticesPage() {
     setTimeout(() => setAlertMsg(null), 4000);
   };
 
+  // Lấy danh sách lộ trình bài tập từ API (sử dụng HttpOnly cookie tự động)
   const fetchPractices = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`${API_URL}/admin/practices`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await fetch(`${API_URL}/admin/practices`);
       if (res.ok) {
         const data = await res.json();
         setPracticesList(data);
@@ -76,11 +75,10 @@ export default function PracticesPage() {
     }
   };
 
+  // Gọi API tải lộ trình khi component mount
   useEffect(() => {
-    if (token) {
-      fetchPractices();
-    }
-  }, [token]);
+    fetchPractices();
+  }, []);
 
   const handleCreatePractice = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -94,7 +92,6 @@ export default function PracticesPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           title: practiceTitle,
@@ -127,7 +124,6 @@ export default function PracticesPage() {
         try {
           const res = await fetch(`${API_URL}/admin/practices/${id}`, {
             method: 'DELETE',
-            headers: { Authorization: `Bearer ${token}` },
           });
 
           if (res.ok) {
@@ -164,7 +160,6 @@ export default function PracticesPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           title: item.title,
@@ -202,7 +197,6 @@ export default function PracticesPage() {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
-              Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify({ chapters: formattedChapters }),
           });

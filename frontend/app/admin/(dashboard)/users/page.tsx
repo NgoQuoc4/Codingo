@@ -18,7 +18,7 @@ interface AdminUser {
 const API_URL = process.env.NEXT_PUBLIC_API_URL || '/api';
 
 export default function UsersPage() {
-  const { token, user } = useAuth();
+  const { user } = useAuth();
 
   // State
   const [usersList, setUsersList] = useState<AdminUser[]>([]);
@@ -49,9 +49,7 @@ export default function UsersPage() {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`${API_URL}/admin/users`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await fetch(`${API_URL}/admin/users`);
       if (res.ok) {
         const data = await res.json();
         setUsersList(data);
@@ -66,10 +64,8 @@ export default function UsersPage() {
   };
 
   useEffect(() => {
-    if (token) {
-      fetchUsers();
-    }
-  }, [token]);
+    fetchUsers();
+  }, []);
 
   const openEditUserModal = (userItem: AdminUser) => {
     setEditingUser(userItem);
@@ -89,7 +85,6 @@ export default function UsersPage() {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           xp: userXpInput,
@@ -125,7 +120,6 @@ export default function UsersPage() {
         try {
           const res = await fetch(`${API_URL}/admin/users/${id}`, {
             method: 'DELETE',
-            headers: { Authorization: `Bearer ${token}` },
           });
 
           if (res.ok) {

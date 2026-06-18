@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { useAuth } from '../../../context/AuthContext';
+import { useQuery, useMutation } from '@tanstack/react-query';
+import { apiGetLessonDetails, apiCompleteLesson } from '../../../lib/api';
 
 interface Exercise {
   _id?: string;
@@ -17,8 +19,6 @@ interface Lesson {
   title: string;
   exercises: Exercise[];
 }
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || '/api';
 
 // Audio tone generator
 const playTone = (type: 'correct' | 'incorrect') => {
@@ -70,13 +70,11 @@ const playTone = (type: 'correct' | 'incorrect') => {
 
 export default function LessonPage() {
   const { id: lessonId } = useParams() as { id: string };
-  const { token, user, loseHeart, refillHearts, refreshUser } = useAuth();
+  const { user, loading: authLoading, loseHeart, refillHearts, refreshUser } = useAuth();
   const router = useRouter();
 
-  const [lesson, setLesson] = useState<Lesson | null>(null);
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [currentIdx, setCurrentIdx] = useState(0);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   // Exercise Answer states
@@ -92,52 +90,50 @@ export default function LessonPage() {
   // Finishing screen states
   const [lessonFinished, setLessonFinished] = useState(false);
   const [xpEarned, setXpEarned] = useState(0);
-  const [completing, setCompleting] = useState(false);
 
   // Hearts refill overlay states
   const [showOutOfHeartsModal, setShowOutOfHeartsModal] = useState(false);
   const [refillLoading, setRefillLoading] = useState(false);
   const [refillMsg, setRefillMsg] = useState('');
 
-  useEffect(() => {
-    if (!token) {
-      router.push('/login');
-      return;
-    }
-    fetchLessonData();
-  }, [lessonId, token]);
+  const { data: lesson = null, isLoading: loading, error: queryError } = useQuery<Lesson | null>({
+    queryKey: ['lesson', lessonId],
+    queryFn: () => apiGetLessonDetails(lessonId),
+    enabled: !!lessonId,
+  });
 
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (!authLoading && !user) {
+      router.push('/login');
+    }
+  }, [user, authLoading]);
+
+  // Handle query error
+  useEffect(() => {
+    if (queryError) {
+      setError('Could not load lesson details.');
+    }
+  }, [queryError]);
+
+  /**
+   * Khi dữ liệu bài học được nạp thành công từ query cache, tiến hành khởi tạo
+   * danh sách câu hỏi và cấu hình trạng thái của câu hỏi đầu tiên.
+   */
+  useEffect(() => {
+    if (lesson) {
+      setExercises(lesson.exercises || []);
+      setCurrentIdx(0);
+      setupExercise(lesson.exercises[0]);
+    }
+  }, [lesson]);
+
+  // Open out of hearts modal if user has 0 hearts
   useEffect(() => {
     if (user && user.hearts === 0 && !isChecked) {
       setShowOutOfHeartsModal(true);
     }
   }, [user?.hearts]);
-
-  const fetchLessonData = async () => {
-    try {
-      setLoading(true);
-      setError('');
-      const res = await fetch(`${API_URL}/lessons/${lessonId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (!res.ok) {
-        throw new Error('Failed to load lesson exercises');
-      }
-
-      const data = await res.json();
-      setLesson(data);
-      setExercises(data.exercises || []);
-      setCurrentIdx(0);
-      setupExercise(data.exercises[0]);
-    } catch (err) {
-      setError('Could not load lesson details.');
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const setupExercise = (ex: Exercise) => {
     setMcSelected('');
@@ -220,29 +216,24 @@ export default function LessonPage() {
     }
   };
 
-  const handleCompleteLesson = async () => {
-    try {
-      setCompleting(true);
-      const res = await fetch(`${API_URL}/lessons/${lessonId}/complete`, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (res.ok) {
-        const data = await res.json();
-        setXpEarned(data.xpGained);
-        await refreshUser();
-        setLessonFinished(true);
-      } else {
-        setError('Failed to record lesson completion.');
-      }
-    } catch (err) {
-      setError('Connection error completing lesson.');
-    } finally {
-      setCompleting(false);
+  const completeMutation = useMutation({
+    mutationFn: () => apiCompleteLesson(lessonId),
+    onSuccess: async (data) => {
+      setXpEarned(data.xpGained);
+      await refreshUser();
+      setLessonFinished(true);
+    },
+    onError: () => {
+      setError('Failed to record lesson completion.');
     }
+  });
+
+  // Derived state biểu thị trạng thái đang gửi request hoàn thành bài học
+  const completing = completeMutation.isPending;
+
+  // Trình kích hoạt mutation hoàn tất bài học
+  const handleCompleteLesson = () => {
+    completeMutation.mutate();
   };
 
   const handleRefillInModal = async () => {

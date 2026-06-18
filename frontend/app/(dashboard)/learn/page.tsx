@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../../../context/AuthContext";
 import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
+import { apiGetPractices, apiGetPracticeDetails } from "../../../lib/api";
 
 interface Lesson {
   _id: string;
@@ -26,90 +28,49 @@ interface Course {
   chapters: Chapter[];
 }
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "/api";
-
 export default function LearnPage() {
-  const { token, user, loading: authLoading, refreshUser } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const router = useRouter();
 
-  const [courses, setCourses] = useState<any[]>([]);
-  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
-  const [completedLessons, setCompletedLessons] = useState<string[]>([]);
-  const [currentLessonId, setCurrentLessonId] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  // State lưu trữ ID khóa học đang được người dùng lựa chọn để hiển thị lộ trình học
+  const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
 
-  // Fetch courses with user progress
+  const { data: courses = [], isLoading: isCoursesLoading, error: coursesError } = useQuery<any[]>({
+    queryKey: ["practices"],
+    queryFn: () => apiGetPractices(),
+  });
+
+  /**
+   * Effect lắng nghe danh sách khóa học tải xong.
+   * Nếu người dùng chưa chọn khóa học nào, tự động chọn khóa học đầu tiên làm mặc định.
+   */
   useEffect(() => {
-    if (token) {
-      fetchCourses();
+    if (courses.length > 0 && !selectedCourseId) {
+      setSelectedCourseId(courses[0]._id);
     }
-  }, [token]);
+  }, [courses, selectedCourseId]);
 
-  // Lấy danh sách khóa học
-  const fetchCourses = async () => {
-    try {
-      setLoading(true);
-      setError("");
-      const res = await fetch(`${API_URL}/practices`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+  const { data: courseDetails = null, isLoading: isDetailsLoading, error: detailsError } = useQuery<{
+    course: Course;
+    progress?: { completedLessons: string[]; currentLessonId: string | null };
+  }>({
+    queryKey: ["practices", selectedCourseId],
+    queryFn: () => apiGetPracticeDetails(selectedCourseId!),
+    enabled: !!selectedCourseId,
+  });
 
-      if (!res.ok) {
-        throw new Error("Failed to fetch courses");
-      }
+  // Giải nén các biến phái sinh trực tiếp từ cache dữ liệu của React Query để render JSX
+  const selectedCourse = courseDetails?.course || null;
+  const completedLessons = courseDetails?.progress?.completedLessons || [];
+  const currentLessonId = courseDetails?.progress?.currentLessonId || null;
 
-      const data = await res.json();
-      setCourses(data);
+  // Trạng thái loading và thông báo lỗi tổng hợp từ các query
+  const loading = isCoursesLoading || (!!selectedCourseId && isDetailsLoading);
+  const error = coursesError ? "Failed to load courses. Please refresh the page." : detailsError ? "Failed to load course details." : "";
 
-      if (data.length > 0) {
-        const activeCourse = data[0];
-        fetchCourseDetails(activeCourse._id);
-      } else {
-        setLoading(false);
-      }
-    } catch (err) {
-      setError("Failed to load courses. Please refresh the page.");
-      setLoading(false);
-    }
-  };
-
-  // Chi tiết bài học theo courseId
-  const fetchCourseDetails = async (courseId: string) => {
-    try {
-      setLoading(true);
-      const res = await fetch(`${API_URL}/practices/${courseId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (!res.ok) {
-        throw new Error("Failed to load course details");
-      }
-
-      const data = await res.json();
-      setSelectedCourse(data.course);
-
-      if (data.progress) {
-        setCompletedLessons(data.progress.completedLessons || []);
-        setCurrentLessonId(data.progress.currentLessonId || null);
-      } else {
-        setCompletedLessons([]);
-        setCurrentLessonId(null);
-      }
-    } catch (err) {
-      setError("Failed to load course details.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Thay đổi khóa học
+  // Hàm xử lý khi người dùng chọn tab chuyển đổi ngôn ngữ/khóa học học tập
   const handleCourseChange = (courseId: string) => {
-    fetchCourseDetails(courseId);
+    setSelectedCourseId(courseId);
   };
 
   const getAllLessonsFlat = (): Lesson[] => {

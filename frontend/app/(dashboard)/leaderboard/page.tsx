@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../../context/AuthContext';
 import Link from 'next/link';
+import { useQuery } from '@tanstack/react-query';
+import { apiGetLeaderboard } from '../../../lib/api';
 
 interface LeaderboardUser {
   name: string;
@@ -29,7 +31,7 @@ const LEAGUES = [
     competitors: [
       { username: 'Lập trình viên giấy', xp: 90, avatar: 'https://api.dicebear.com/7.x/pixel-art/svg?seed=paper', role: 'user' },
       { username: 'Cú Đêm Code', xp: 75, avatar: 'https://api.dicebear.com/7.x/pixel-art/svg?seed=owl', role: 'user' },
-      { username: 'Gà Con Tập Sự', xp: 50, avatar: 'https://api.dicebear.com/7.x/pixel-art/svg?seed=chicken', role: 'user' },
+      { username: 'Gà Con Tập Sự', xp: 50, avatar: 'https://api.dicebear.com/7.x/pixel-art/svg?seed=kitty', role: 'user' },
       { username: 'Sóc Con', xp: 30, avatar: 'https://api.dicebear.com/7.x/pixel-art/svg?seed=squirrel', role: 'user' },
     ]
   },
@@ -107,15 +109,11 @@ const LEAGUES = [
 ];
 
 export default function LeaderboardPage() {
-  const { token, user, loading: authLoading } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const router = useRouter();
-  
-  if (!user) return null;
   
   const [selectedEmoji, setSelectedEmoji] = useState('😎');
   const [userEmoji, setUserEmoji] = useState('😎');
-  const [standings, setStandings] = useState<any[]>([]);
-  const [loadingStandings, setLoadingStandings] = useState(true);
 
   // Dynamic active league calculations
   const getUserLeagueId = (xp: number) => {
@@ -129,35 +127,19 @@ export default function LeaderboardPage() {
   const userActiveLeagueId = user ? getUserLeagueId(user.xp) : 'bronze';
   const [selectedLeagueId, setSelectedLeagueId] = useState<string | null>(null);
 
+  // Tải giải đấu hiện tại của người dùng khi trang bắt đầu tải lần đầu
   useEffect(() => {
     if (user && !selectedLeagueId) {
       setSelectedLeagueId(getUserLeagueId(user.xp));
     }
   }, [user, selectedLeagueId]);
 
-  useEffect(() => {
-    if (!token) return;
+  const { data: standings = [], isLoading: loadingStandings } = useQuery<any[]>({
+    queryKey: ['leaderboard'],
+    queryFn: () => apiGetLeaderboard(10),
+  });
 
-    const fetchStandings = async () => {
-      try {
-        const res = await fetch('/api/users/leaderboard?limit=10', {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-        if (res.ok) {
-          const data = await res.json();
-          setStandings(data);
-        }
-      } catch (err) {
-        console.error('Failed to fetch leaderboard:', err);
-      } finally {
-        setLoadingStandings(false);
-      }
-    };
-
-    fetchStandings();
-  }, [token]);
+  if (!user) return null;
 
 
 

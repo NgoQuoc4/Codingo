@@ -12,7 +12,6 @@ interface AdminStats {
 const API_URL = process.env.NEXT_PUBLIC_API_URL || '/api';
 
 export default function OverviewPage() {
-  const { token } = useAuth();
   const [stats, setStats] = useState<AdminStats | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -21,9 +20,7 @@ export default function OverviewPage() {
     try {
       setLoading(true);
       setError('');
-      const res = await fetch(`${API_URL}/admin/stats`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await fetch(`${API_URL}/admin/stats`);
       if (res.ok) {
         const data = await res.json();
         setStats(data);
@@ -38,10 +35,8 @@ export default function OverviewPage() {
   };
 
   useEffect(() => {
-    if (token) {
-      fetchStats();
-    }
-  }, [token]);
+    fetchStats();
+  }, []);
 
   return (
     <div className="space-y-8 animate-fadeIn">

@@ -4,13 +4,19 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "../context/AuthContext";
 
+/**
+ * SidebarLinks hiển thị danh sách các tab liên kết chính bên trong Sidebar (Chỉ dành cho Desktop).
+ * Tự động tô sáng tab hiện tại đang active dựa trên pathname và cấp quyền hiển thị trang Admin 
+ * nếu vai trò (role) của người dùng là 'admin'.
+ */
 export function SidebarLinks() {
-  const pathname = usePathname();
-  const { user } = useAuth();
+  const pathname = usePathname(); // Lấy đường dẫn URL hiện tại để kiểm tra active
+  const { user } = useAuth(); // Lấy thông tin user hiện tại từ context
 
   if (!user) return null;
 
   const menuItems = [
+
     { name: "HỌC", path: "/learn", icon: "school" },
     { name: "LÝ THUYẾT", path: "/phonetics", icon: "menu_book" },
     { name: "BẢNG XẾP HẠNG", path: "/leaderboard", icon: "leaderboard" },
@@ -54,12 +60,17 @@ export function SidebarLinks() {
   );
 }
 
+/**
+ * SidebarProfile hiển thị avatar, tên người dùng và nút Đăng xuất 
+ * ở cuối Sidebar (Chỉ dành cho Desktop).
+ */
 export function SidebarProfile() {
   const { user, logout } = useAuth();
 
   if (!user) return null;
 
   return (
+
     <div className="mt-auto border-t border-outline-variant/30 pt-4 flex flex-col gap-3">
       <div className="flex items-center gap-3 px-3 py-2">
         <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-outline/30 bg-surface-bright">
@@ -92,12 +103,17 @@ export function SidebarProfile() {
   );
 }
 
+/**
+ * MobileHeader hiển thị ở đầu trang khi chạy trên thiết bị di động (Mobile).
+ * Hiển thị tên ứng dụng và các chỉ số thống kê tức thì: Mạng (Hearts), Điểm kinh nghiệm (XP), Chuỗi ngày học (Streak).
+ */
 export function MobileHeader() {
   const { user } = useAuth();
 
   if (!user) return null;
 
   return (
+
     <div className="md:hidden flex justify-between items-center h-16 w-full fixed top-0 left-0 px-4 z-50 bg-surface-container-high border-b-4 border-black/20">
       <span className="font-headline-md text-xl font-black text-secondary tracking-tighter uppercase select-none">
         Codingo
@@ -135,6 +151,10 @@ export function MobileHeader() {
   );
 }
 
+/**
+ * MobileBottomNav hiển thị thanh điều hướng dạng tab ở đáy màn hình trên thiết bị di động.
+ * Tối giản số lượng hiển thị trên Mobile so với Sidebar của Desktop để tối ưu không gian hiển thị.
+ */
 export function MobileBottomNav() {
   const pathname = usePathname();
   const { user } = useAuth();
@@ -142,6 +162,7 @@ export function MobileBottomNav() {
   if (!user) return null;
 
   const menuItems = [
+
     { name: "HỌC", path: "/learn", icon: "school" },
     { name: "LÝ THUYẾT", path: "/phonetics", icon: "menu_book" },
     { name: "BẢNG XẾP HẠNG", path: "/leaderboard", icon: "leaderboard" },

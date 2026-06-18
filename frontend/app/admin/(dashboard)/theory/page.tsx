@@ -19,7 +19,6 @@ interface TheoryLesson {
 const API_URL = process.env.NEXT_PUBLIC_API_URL || '/api';
 
 export default function TheoryPage() {
-  const { token } = useAuth();
 
   // State
   const [theoryLessons, setTheoryLessons] = useState<TheoryLesson[]>([]);
@@ -65,9 +64,7 @@ export default function TheoryPage() {
   const fetchTheoryLessons = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`${API_URL}/courses`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await fetch(`${API_URL}/courses`);
       if (res.ok) {
         const data = await res.json();
         setTheoryLessons(data);
@@ -82,10 +79,8 @@ export default function TheoryPage() {
   };
 
   useEffect(() => {
-    if (token) {
-      fetchTheoryLessons();
-    }
-  }, [token]);
+    fetchTheoryLessons();
+  }, []);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -265,7 +260,6 @@ Lưu ý quan trọng: Chỉ trả về chuỗi JSON thô, không bọc trong ký
         method,
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(bodyData),
       });
@@ -299,7 +293,6 @@ Lưu ý quan trọng: Chỉ trả về chuỗi JSON thô, không bọc trong ký
         try {
           const res = await fetch(`${API_URL}/admin/courses/${id}`, {
             method: 'DELETE',
-            headers: { Authorization: `Bearer ${token}` },
           });
 
           if (res.ok) {
@@ -344,7 +337,6 @@ Lưu ý quan trọng: Chỉ trả về chuỗi JSON thô, không bọc trong ký
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(item),
       });

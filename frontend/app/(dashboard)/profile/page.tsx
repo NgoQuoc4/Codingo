@@ -5,29 +5,34 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '../../../context/AuthContext';
 import Link from 'next/link';
 
+/**
+ * ProfilePage hiển thị thông tin chi tiết của người dùng như tên, email, avatar, 
+ * thống kê các chỉ số (streak, XP, cup, bảng đấu hiện tại) và danh sách thành tựu đạt được.
+ */
 export default function ProfilePage() {
-  const { token, user, loading: authLoading } = useAuth();
+  // Lấy dữ liệu và trạng thái xác thực từ AuthContext
+  const { user, loading: authLoading } = useAuth();
   const router = useRouter();
 
-  if (!user) return null;
-
+  // State cục bộ phục vụ việc chuyển đổi tab Đang theo dõi / Người theo dõi ở sidebar phụ
   const [activeSocialTab, setActiveSocialTab] = useState<'following' | 'followers'>('following');
 
+  // Trả về giao diện trống nếu người dùng chưa tải xong thông tin profile
+  if (!user) return null;
 
-
-
-
-  // Achievement progress math
+  // Tính toán phần trăm tiến độ của thành tích Streak (Mục tiêu: chuỗi 75 ngày)
   const streakGoal = 75;
   const streakProgressPercent = Math.min((user.streak / streakGoal) * 100, 100);
 
+  // Tính toán phần trăm tiến độ của thành tích tích lũy kinh nghiệm (Mục tiêu: 7500 XP)
   const xpGoal = 7500;
   const xpProgressPercent = Math.min((user.xp / xpGoal) * 100, 100);
 
   return (
     <>
-        {/* CENTER COLUMN: User Profile details */}
+        {/* CENTER COLUMN: Khung chính hiển thị thông tin chi tiết user */}
         <main className="flex-1 overflow-y-auto custom-scrollbar px-6 py-8">
+
           <div className="max-w-2xl mx-auto space-y-8">
             
             {/* Profile Banner */}

@@ -318,20 +318,32 @@ export const mockProgress: Array<{
 // 5. Các hàm bổ trợ dùng chung cho các API Router
 export const helper = {
   // Hàm trung gian thực hiện chuyển tiếp (proxy) yêu cầu đến Express Backend.
-  // Nếu Backend đang chạy và phản hồi thành công, Next.js sẽ trả thẳng kết quả đó cho client.
+  // Đọc cookie 'token' từ request của client và gán vào header Authorization: Bearer <token> gửi tới backend.
   async proxyFetch(req: Request, apiPath: string, options: RequestInit = {}) {
     try {
       const backendUrl = process.env.BACKEND_URL || 'http://localhost:5000';
       const url = `${backendUrl}${apiPath}`;
       
-      // Tạo đối tượng Headers mới và sao chép token Authorization từ client
+      // Khởi tạo đối tượng Headers
       const headers = new Headers(options.headers || {});
-      const reqHeaders = req.headers;
-      
-      if (reqHeaders.get('authorization')) {
-        headers.set('authorization', reqHeaders.get('authorization')!);
-      }
       headers.set('content-type', 'application/json');
+
+      // Tự động bóc tách cookie 'token' gửi từ client
+      const cookieHeader = req.headers.get('cookie');
+      let token = '';
+      if (cookieHeader) {
+        const cookies = cookieHeader.split(';').reduce((acc, c) => {
+          const [name, val] = c.trim().split('=');
+          if (name && val) acc[name] = val;
+          return acc;
+        }, {} as Record<string, string>);
+        token = cookies['token'] || '';
+      }
+
+      // Nếu có token trong cookie, thiết lập tiêu đề Authorization để gửi tiếp lên Backend
+      if (token) {
+        headers.set('authorization', `Bearer ${token}`);
+      }
 
       const response = await fetch(url, {
         ...options,
@@ -349,13 +361,21 @@ export const helper = {
     }
   },
 
-  // Giải mã token JWT giả lập từ header Authorization để lấy ra thông tin người dùng tương ứng
+  // Giải mã token JWT giả lập từ Cookie 'token' để lấy ra thông tin người dùng tương ứng (khi backend offline)
   authenticate(req: Request): User {
-    const authHeader = req.headers.get('authorization');
-    // Nếu không có header, mặc định lấy người dùng đăng nhập hiện tại
-    if (!authHeader) return activeSessionUser;
+    const cookieHeader = req.headers.get('cookie');
+    let token = '';
+    if (cookieHeader) {
+      const cookies = cookieHeader.split(';').reduce((acc, c) => {
+        const [name, val] = c.trim().split('=');
+        if (name && val) acc[name] = val;
+        return acc;
+      }, {} as Record<string, string>);
+      token = cookies['token'] || '';
+    }
     
-    const token = authHeader.replace('Bearer ', '');
+    // Nếu không có token, mặc định lấy người dùng đăng nhập hiện tại làm dự phòng
+    if (!token) return activeSessionUser;
     
     // Tìm trong danh sách mockUsers tài khoản khớp với token truyền lên
     const foundUser = mockUsers.find(u => token.includes(u.username) || token === 'mock-jwt-token-learner' && u.username === 'learner');

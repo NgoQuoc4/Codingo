@@ -7,8 +7,15 @@ import {
   MobileBottomNav,
 } from "./NavbarClientComponents";
 
+/**
+ * Navbar component là thanh điều hướng chính trong hệ thống Dashboard.
+ * Kết hợp giữa:
+ * - Sidebar bên trái ở màn hình Desktop (từ cỡ md trở lên).
+ * - Header thống kê chỉ số ở trên và thanh Bottom Navigation ở dưới trên thiết bị Mobile.
+ */
 export default function Navbar() {
   return (
+
     <>
       {/* DESKTOP SIDEBAR (Visible on md and up) */}
       <aside className="fixed left-0 top-0 h-screen w-64 border-r-4 border-black/20 bg-surface-container flex flex-col p-6 gap-6 z-50 hidden md:flex">

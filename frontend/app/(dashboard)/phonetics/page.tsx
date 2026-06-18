@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../../context/AuthContext';
 import Link from 'next/link';
+import { useQuery } from '@tanstack/react-query';
+import { apiGetTheoryLessons } from '../../../lib/api';
 
 interface TheoryLesson {
   id: string;
@@ -16,13 +18,9 @@ interface TheoryLesson {
   useCase: string;
 }
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || '/api';
-
 export default function PhoneticsPage() {
-  const { token, user, loading: authLoading, addXp } = useAuth();
+  const { user, loading: authLoading, addXp } = useAuth();
   const router = useRouter();
-
-  if (!user) return null;
 
   const [activeTab, setActiveTab] = useState<'all' | 'variables' | 'functions' | 'logic'>('all');
   const [selectedLesson, setSelectedLesson] = useState<TheoryLesson | null>(null);
@@ -33,37 +31,10 @@ export default function PhoneticsPage() {
   
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
-  // Dynamic lessons from database
-  const [lessons, setLessons] = useState<TheoryLesson[]>([]);
-  const [lessonsLoading, setLessonsLoading] = useState(true);
-
-  // Fetch theory lessons from backend Course API
-  useEffect(() => {
-    if (!token) return;
-
-    const fetchTheoryLessons = async () => {
-      try {
-        setLessonsLoading(true);
-        const res = await fetch(`${API_URL}/courses`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
-        if (res.ok) {
-          const data = await res.json();
-          setLessons(data);
-        } else {
-          console.error('Failed to load theory lessons');
-        }
-      } catch (err) {
-        console.error('Connection error loading theory lessons:', err);
-      } finally {
-        setLessonsLoading(false);
-      }
-    };
-
-    fetchTheoryLessons();
-  }, [token]);
+  const { data: lessons = [], isLoading: lessonsLoading } = useQuery<TheoryLesson[]>({
+    queryKey: ['courses'],
+    queryFn: () => apiGetTheoryLessons(),
+  });
 
   // Load mastered state from localStorage
   useEffect(() => {
@@ -77,7 +48,7 @@ export default function PhoneticsPage() {
     }
   }, []);
 
-
+  if (!user) return null;
 
   if (lessonsLoading) {
     return (

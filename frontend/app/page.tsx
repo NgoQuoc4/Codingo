@@ -8,10 +8,16 @@ import {
   Shield,
 } from "lucide-react";
 
+/**
+ * Component Home đại diện cho trang chủ giới thiệu (Landing Page) của hệ thống học tập Codingo.
+ * Nó hiển thị giới thiệu tổng quan, linh vật trực quan bằng CSS và điều hướng truy cập dựa trên
+ * trạng thái đăng nhập của người dùng.
+ */
 export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
+
       {/* Header */}
       <header className="border-b border-gray-200 bg-white sticky top-0 z-50 px-6 py-4 flex justify-between items-center max-w-6xl w-full mx-auto rounded-b-xl shadow-sm">
         <div className="flex items-center gap-2">

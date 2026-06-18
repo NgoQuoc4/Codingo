@@ -5,23 +5,28 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '../../../context/AuthContext';
 import Link from 'next/link';
 
+/**
+ * QuestsPage quản lý và hiển thị bảng điều khiển các nhiệm vụ hàng ngày (Daily Quests)
+ * và nhiệm vụ sự kiện hàng tháng của người học (ví dụ: mục tiêu tích lũy XP).
+ */
 export default function QuestsPage() {
-  const { token, user, loading: authLoading } = useAuth();
+  // Lấy thông tin user hiện tại và token từ Context xác thực
+  const { user, loading: authLoading } = useAuth();
   const router = useRouter();
 
+  // Trả về null nếu thông tin người dùng chưa được tải
   if (!user) return null;
 
-
-
-
-
+  // Tính lượng điểm kinh nghiệm đạt được trong ngày (ở bản demo này sử dụng XP chia lấy dư 20 làm ví dụ)
   const dailyXp = user.xp % 20;
+  // Tính tỷ lệ phần trăm hoàn thành nhiệm vụ hàng ngày (mục tiêu 20 XP một ngày)
   const dailyProgressPercent = Math.min((dailyXp / 20) * 100, 100);
 
   return (
     <>
-        {/* CENTER COLUMN: Quest Hub */}
+        {/* CENTER COLUMN: Khung chính hiển thị danh sách nhiệm vụ */}
         <main className="flex-1 overflow-y-auto custom-scrollbar px-6 py-8">
+
           <div className="space-y-8 max-w-2xl mx-auto">
             
             {/* Monthly Challenge Hero Card */}

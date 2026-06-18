@@ -44,7 +44,7 @@ const generateObjectId = (): string => {
 
 export default function PracticeEditorPage() {
   const { id } = useParams() as { id: string };
-  const { token, user, loading: authLoading } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const router = useRouter();
 
   // Content state
@@ -88,28 +88,26 @@ export default function PracticeEditorPage() {
   // Route protection
   useEffect(() => {
     if (authLoading) return;
-    if (!token) {
+    if (!user) {
       router.push('/login');
       return;
     }
-    if (user && user.role !== 'admin') {
+    if (user.role !== 'admin') {
       router.push('/learn');
     }
-  }, [token, authLoading, user, router]);
+  }, [authLoading, user, router]);
 
   // Load practice details
   useEffect(() => {
-    if (authLoading || !token || (user && user.role !== 'admin')) return;
+    if (authLoading || !user || user.role !== 'admin') return;
     fetchPracticeDetails();
-  }, [id, token, authLoading, user]);
+  }, [id, authLoading, user]);
 
   const fetchPracticeDetails = async () => {
     try {
       setLoading(true);
       setError('');
-      const res = await fetch(`${API_URL}/practices/${id}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      const res = await fetch(`${API_URL}/practices/${id}`);
 
       if (!res.ok) {
         throw new Error('Lộ trình không tồn tại hoặc lỗi kết nối');
@@ -398,8 +396,7 @@ export default function PracticeEditorPage() {
       const res = await fetch(`${API_URL}/admin/practices/${id}/chapters`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({ chapters: payloadChapters })
       });

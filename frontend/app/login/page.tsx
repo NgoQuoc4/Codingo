@@ -5,36 +5,46 @@ import Link from "next/link";
 import { useAuth } from "../../context/AuthContext";
 import { Mail, Lock, ArrowRight, Eye, EyeOff } from "lucide-react";
 
+/**
+ * LoginPage hiển thị form đăng nhập cho người dùng.
+ * Sử dụng AuthContext để gửi thông tin đăng nhập lên backend và lưu trữ token.
+ */
 export default function LoginPage() {
+  // Khai báo các state cục bộ quản lý giá trị input và trạng thái submit
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState("");
-  const [submitting, setSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // Trạng thái ẩn/hiện mật khẩu
+  const [error, setError] = useState(""); // Thông báo lỗi khi đăng nhập thất bại
+  const [submitting, setSubmitting] = useState(false); // Trạng thái đang gửi request
 
+  // Lấy hàm login từ AuthContext toàn cục
   const { login } = useAuth();
 
+  // Xử lý khi nhấn nút gửi form (Submit Form)
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
+    // Kiểm tra tính hợp lệ cơ bản của dữ liệu đầu vào
     if (!email || !password) {
-      setError("Please fill in all fields");
+      setError("Vui lòng điền đầy đủ tất cả các trường.");
       return;
     }
 
     setSubmitting(true);
     try {
+      // Gọi hàm login từ Auth Context để thực hiện API đăng nhập và điều hướng
       const res = await login(email, password);
       if (!res.success) {
-        setError(res.message || "Invalid email or password");
+        setError(res.message || "Email hoặc mật khẩu không hợp lệ.");
       }
     } catch (err) {
-      setError("An error occurred. Please try again.");
+      setError("Đã xảy ra lỗi hệ thống. Vui lòng thử lại sau.");
     } finally {
       setSubmitting(false);
     }
   };
+
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 items-center justify-center px-4 py-8">

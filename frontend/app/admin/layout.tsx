@@ -6,20 +6,20 @@ import { useAuth } from '../../context/AuthContext';
 import Sidebar from '../../components/Navbar';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  const { token, user, loading: authLoading } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const router = useRouter();
 
   // Route protection
   useEffect(() => {
     if (authLoading) return;
-    if (!token) {
+    if (!user) {
       router.push('/login');
       return;
     }
-    if (user && user.role !== 'admin') {
+    if (user.role !== 'admin') {
       router.push('/learn');
     }
-  }, [token, authLoading, user, router]);
+  }, [authLoading, user, router]);
 
   if (authLoading || !user || user.role !== 'admin') {
     return (

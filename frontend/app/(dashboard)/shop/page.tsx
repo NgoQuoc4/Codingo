@@ -5,9 +5,13 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "../../../context/AuthContext";
 import Link from "next/link";
 
+/**
+ * ShopPage là trang Cửa hàng ứng dụng, cho phép người dùng quy đổi điểm kinh nghiệm (XP) lấy mạng 
+ * (trái tim) học tập, mua gói mạng vô hạn Pro hoặc trang bị các bổ trợ học tập (ví dụ: đóng băng streak).
+ */
 export default function ShopPage() {
+  // Lấy các state và hàm xử lý khôi phục tim từ AuthContext
   const {
-    token,
     user,
     loading: authLoading,
     refillHearts,
@@ -15,18 +19,22 @@ export default function ShopPage() {
   } = useAuth();
   const router = useRouter();
 
+  // Trả về giao diện rỗng nếu profile người dùng chưa được tải
   if (!user) return null;
 
+  // Các state hiển thị thông báo trạng thái giao dịch
   const [shopMsg, setShopMsg] = useState("");
   const [shopError, setShopError] = useState("");
   const [loadingAction, setLoadingAction] = useState(false);
 
+  // Xử lý sự kiện khôi phục tim (đổi 50 XP lấy đầy tim - tối đa 5 tim)
   const handleRefill = async () => {
     if (user.hearts >= 5) return;
     try {
       setShopMsg("");
       setShopError("");
       setLoadingAction(true);
+
       const res = await refillHearts();
       if (res.success) {
         setShopMsg("Nạp đầy trái tim thành công!");

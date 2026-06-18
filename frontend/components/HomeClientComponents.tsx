@@ -4,7 +4,13 @@ import Link from "next/link";
 import { useAuth } from "../context/AuthContext";
 import { LogIn, ArrowRight } from "lucide-react";
 
+/**
+ * HeaderAuth là Component hiển thị góc trên cùng bên phải của Header trang chủ.
+ * - Nếu người dùng ĐÃ đăng nhập: Hiển thị nút "LEARN PATH" dẫn tới trang học tập.
+ * - Nếu người dùng CHƯA đăng nhập: Hiển thị nút đăng nhập "LOGIN" và đăng ký "SIGN UP".
+ */
 export function HeaderAuth() {
+  // Lấy trạng thái user từ AuthContext
   const { user } = useAuth();
 
   return (
@@ -37,7 +43,13 @@ export function HeaderAuth() {
   );
 }
 
+/**
+ * HeroCTA hiển thị các nút kêu gọi hành động (Call To Action - CTA) chính giữa phần giới thiệu trang chủ.
+ * - Nếu đã đăng nhập: Hiển thị nút lớn "CONTINUE LEARNING" để tiếp tục học.
+ * - Nếu chưa đăng nhập: Hiển thị nút "GET STARTED" màu xanh và nút "I ALREADY HAVE AN ACCOUNT" màu trắng.
+ */
 export function HeroCTA() {
+  // Lấy trạng thái user từ AuthContext
   const { user } = useAuth();
 
   return (
@@ -70,3 +82,4 @@ export function HeroCTA() {
     </div>
   );
 }
+
