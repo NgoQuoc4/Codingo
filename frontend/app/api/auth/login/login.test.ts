@@ -27,6 +27,8 @@ describe('POST /api/auth/login', () => {
     
     vi.spyOn(helper, 'proxyFetch').mockResolvedValue({
       ok: true,
+      isOffline: false,
+      status: 200,
       data: { user: mockUserData, token: mockToken }
     });
 
