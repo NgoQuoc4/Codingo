@@ -6,6 +6,7 @@ import {
   MobileHeader,
   MobileBottomNav,
 } from "./NavbarClientComponents";
+import NotificationBell from "./NotificationBell";
 
 /**
  * Navbar component là thanh điều hướng chính trong hệ thống Dashboard.
@@ -44,6 +45,9 @@ export default function Navbar() {
 
         {/* Navigation Tabs (Client Component for active tab checks) */}
         <SidebarLinks />
+
+        {/* Notification Bell (Client Component) */}
+        <NotificationBell variant="desktop" />
 
         {/* Footer profile & logout (Client Component) */}
         <SidebarProfile />

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "../context/AuthContext";
+import NotificationBell from "./NotificationBell";
 
 /**
  * SidebarLinks hiển thị danh sách các tab liên kết chính bên trong Sidebar (Chỉ dành cho Desktop).
@@ -146,6 +147,9 @@ export function MobileHeader() {
           </span>
           <span>{user.streak}</span>
         </span>
+
+        {/* Notification Bell */}
+        <NotificationBell variant="mobile" />
       </div>
     </div>
   );
