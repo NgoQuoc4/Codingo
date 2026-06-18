@@ -333,8 +333,12 @@ export const helper = {
       let token = '';
       if (cookieHeader) {
         const cookies = cookieHeader.split(';').reduce((acc, c) => {
-          const [name, val] = c.trim().split('=');
-          if (name && val) acc[name] = val;
+          const indexOfEquals = c.indexOf('=');
+          if (indexOfEquals !== -1) {
+            const name = c.substring(0, indexOfEquals).trim();
+            const val = c.substring(indexOfEquals + 1).trim();
+            acc[name] = val;
+          }
           return acc;
         }, {} as Record<string, string>);
         token = cookies['token'] || '';
@@ -373,8 +377,12 @@ export const helper = {
     let token = '';
     if (cookieHeader) {
       const cookies = cookieHeader.split(';').reduce((acc, c) => {
-        const [name, val] = c.trim().split('=');
-        if (name && val) acc[name] = val;
+        const indexOfEquals = c.indexOf('=');
+        if (indexOfEquals !== -1) {
+          const name = c.substring(0, indexOfEquals).trim();
+          const val = c.substring(indexOfEquals + 1).trim();
+          acc[name] = val;
+        }
         return acc;
       }, {} as Record<string, string>);
       token = cookies['token'] || '';
