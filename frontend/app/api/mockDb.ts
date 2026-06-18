@@ -351,13 +351,19 @@ export const helper = {
       });
 
       if (response.ok) {
-        return { ok: true, data: await response.json() };
+        return { ok: true, isOffline: false, status: response.status, data: await response.json() };
       }
       
-      return { ok: false, error: 'Phản hồi từ Backend không thành công' };
+      let errorData;
+      try {
+        errorData = await response.json();
+      } catch (e) {
+        errorData = { message: 'Phản hồi từ Backend không thành công' };
+      }
+      return { ok: false, isOffline: false, status: response.status, data: errorData };
     } catch (err) {
       // Trường hợp lỗi (ví dụ Backend bị tắt/offline), bắt lỗi để chuyển sang dữ liệu giả lập
-      return { ok: false, error: err instanceof Error ? err.message : String(err) };
+      return { ok: false, isOffline: true, error: err instanceof Error ? err.message : String(err) };
     }
   },
 

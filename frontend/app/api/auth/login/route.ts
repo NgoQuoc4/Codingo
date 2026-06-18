@@ -31,6 +31,14 @@ export async function POST(req: Request) {
       return response;
     }
 
+    // Nếu backend online nhưng trả về lỗi (ví dụ: mật khẩu sai), trả thẳng lỗi đó cho client
+    if (proxy.isOffline === false) {
+      return NextResponse.json(
+        proxy.data || { message: 'Đăng nhập thất bại!' },
+        { status: proxy.status || 401 }
+      );
+    }
+
     // 2. Chế độ dự phòng (Fallback): Kiểm tra tài khoản giả lập cục bộ
     if (!email || !password) {
       return NextResponse.json({ message: 'Vui lòng cung cấp email và mật khẩu!' }, { status: 400 });

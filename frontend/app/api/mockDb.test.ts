@@ -31,14 +31,32 @@ describe('helper.proxyFetch', () => {
     expect(result.data).toEqual({ success: true });
   });
 
-  it('should handle offline/failed backend fetch and return error status', async () => {
+  it('should handle offline/failed backend fetch and return error status with isOffline: true', async () => {
     vi.spyOn(global, 'fetch').mockRejectedValue(new Error('Connection refused'));
 
     const request = new Request('http://localhost/api/users/profile');
     const result = await helper.proxyFetch(request, '/api/users/profile');
 
     expect(result.ok).toBe(false);
+    expect(result.isOffline).toBe(true);
     expect(result.error).toBe('Connection refused');
+  });
+
+  it('should handle online non-ok response and return status code with isOffline: false', async () => {
+    const mockResponse = {
+      ok: false,
+      status: 401,
+      json: async () => ({ message: 'Unauthorized token' })
+    };
+    vi.spyOn(global, 'fetch').mockResolvedValue(mockResponse as Response);
+
+    const request = new Request('http://localhost/api/users/profile');
+    const result = await helper.proxyFetch(request, '/api/users/profile');
+
+    expect(result.ok).toBe(false);
+    expect(result.isOffline).toBe(false);
+    expect(result.status).toBe(401);
+    expect(result.data).toEqual({ message: 'Unauthorized token' });
   });
 });
 

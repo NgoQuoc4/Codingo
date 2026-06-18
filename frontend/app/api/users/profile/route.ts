@@ -13,6 +13,14 @@ export async function GET(req: Request) {
       return NextResponse.json(proxy.data);
     }
 
+    // Nếu backend online nhưng trả về lỗi (ví dụ: 401 Unauthorized do hết hạn token), trả về lỗi đó cho client
+    if (proxy.isOffline === false) {
+      return NextResponse.json(
+        proxy.data || { message: 'Unauthorized' },
+        { status: proxy.status || 401 }
+      );
+    }
+
     // 2. Chế độ dự phòng (Fallback): Lấy tài khoản giả lập và mô phỏng phục hồi tim
     const user = helper.authenticate(req);
     

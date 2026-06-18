@@ -44,9 +44,10 @@ describe('POST /api/auth/login', () => {
     expect(mockCookieStore.set).toHaveBeenCalledWith('token', mockToken, expect.any(Object));
   });
 
-  it('should fallback to mock database if backend proxy fails', async () => {
+  it('should fallback to mock database if backend proxy fails due to offline backend', async () => {
     vi.spyOn(helper, 'proxyFetch').mockResolvedValue({
       ok: false,
+      isOffline: true,
       error: 'Backend offline'
     });
 
@@ -70,6 +71,7 @@ describe('POST /api/auth/login', () => {
   it('should return 400 if email or password is missing in fallback mode', async () => {
     vi.spyOn(helper, 'proxyFetch').mockResolvedValue({
       ok: false,
+      isOffline: true,
       error: 'Backend offline'
     });
 
@@ -88,6 +90,7 @@ describe('POST /api/auth/login', () => {
   it('should return 401 if user email does not exist in mockUsers during fallback mode', async () => {
     vi.spyOn(helper, 'proxyFetch').mockResolvedValue({
       ok: false,
+      isOffline: true,
       error: 'Backend offline'
     });
 
@@ -101,5 +104,26 @@ describe('POST /api/auth/login', () => {
 
     expect(res.status).toBe(401);
     expect(json.message).toContain('Tài khoản không tồn tại');
+  });
+
+  it('should forward backend 401 error directly if backend is online but returns 401', async () => {
+    vi.spyOn(helper, 'proxyFetch').mockResolvedValue({
+      ok: false,
+      isOffline: false,
+      status: 401,
+      data: { message: 'Mật khẩu không chính xác' }
+    });
+
+    const req = new Request('http://localhost/api/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({ email: 'test@example.com', password: 'wrongpassword' })
+    });
+
+    const res = await POST(req);
+    const json = await res.json();
+
+    expect(res.status).toBe(401);
+    expect(json.message).toBe('Mật khẩu không chính xác');
+    expect(mockCookieStore.set).not.toHaveBeenCalled();
   });
 });
