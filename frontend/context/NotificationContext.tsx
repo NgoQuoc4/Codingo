@@ -101,12 +101,22 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
   );
 };
 
+// Fallback context dùng khi component được render ngoài NotificationProvider (ví dụ: trong quá trình unmount khi logout)
+const FALLBACK_CONTEXT: NotificationContextType = {
+  notifications: [],
+  toastQueue: [],
+  unreadCount: 0,
+  addNotification: () => {},
+  markAllRead: () => {},
+  markRead: () => {},
+  dismissToast: () => {},
+  clearAll: () => {},
+};
+
 export const useNotifications = () => {
   const context = useContext(NotificationContext);
-  if (context === undefined) {
-    throw new Error('useNotifications must be used within a NotificationProvider');
-  }
-  return context;
+  // Trả về fallback an toàn thay vì throw khi không có provider (tránh lỗi khi unmount)
+  return context ?? FALLBACK_CONTEXT;
 };
 
 // ─── Preset helper functions để tạo thông báo nhanh ───────────────────────────

@@ -117,10 +117,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     } catch (err) {
       console.error('Lỗi khi gọi API đăng xuất:', err);
     } finally {
-      // Xóa sạch tất cả các cache trong bộ đệm
-      queryClient.removeQueries({ queryKey: ['user'] });
+      // Xóa sạch toàn bộ các cache trong bộ đệm trước khi điều hướng
       queryClient.setQueryData(['user'], null);
-      router.push('/');
+      queryClient.removeQueries({ queryKey: ['user'] });
+      // Dùng window.location thay cho router.push để reset hoàn toàn React state và tránh race condition
+      window.location.href = '/login';
     }
   };
 

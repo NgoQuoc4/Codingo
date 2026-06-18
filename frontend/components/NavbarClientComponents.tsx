@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "../context/AuthContext";
@@ -67,8 +68,16 @@ export function SidebarLinks() {
  */
 export function SidebarProfile() {
   const { user, logout } = useAuth();
+  const [isLoggingOut, setIsLoggingOut] = React.useState(false);
 
   if (!user) return null;
+
+  const handleLogout = async () => {
+    if (isLoggingOut) return;
+    setIsLoggingOut(true);
+    await logout();
+    // window.location.href sẽ reload trang, nên không cần setIsLoggingOut(false)
+  };
 
   return (
 
@@ -94,11 +103,14 @@ export function SidebarProfile() {
         </div>
       </div>
       <button
-        onClick={logout}
-        className="w-full flex items-center justify-center gap-2 p-3 bg-surface-bright hover:bg-surface-variant hover:text-brand-red rounded-xl font-button text-xs border-b-4 border-black/30 transition-all active:translate-y-1 active:border-b-0 uppercase font-black"
+        onClick={handleLogout}
+        disabled={isLoggingOut}
+        className="w-full flex items-center justify-center gap-2 p-3 bg-surface-bright hover:bg-surface-variant hover:text-brand-red rounded-xl font-button text-xs border-b-4 border-black/30 transition-all active:translate-y-1 active:border-b-0 uppercase font-black disabled:opacity-60 disabled:cursor-not-allowed"
       >
-        <span className="material-symbols-outlined text-lg">logout</span>
-        <span>ĐĂNG XUẤT</span>
+        <span className={`material-symbols-outlined text-lg ${isLoggingOut ? 'animate-spin' : ''}`}>
+          {isLoggingOut ? 'refresh' : 'logout'}
+        </span>
+        <span>{isLoggingOut ? 'Đang thoát...' : 'ĐĂNG XUẤT'}</span>
       </button>
     </div>
   );
