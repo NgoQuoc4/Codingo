@@ -31,6 +31,7 @@ export interface User {
   listeningExercises?: boolean;
   darkMode?: string;
   role?: string;
+  xpHistory?: any;
 }
 
 interface AuthContextType {

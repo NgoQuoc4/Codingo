@@ -25,6 +25,7 @@ model User {
   listeningExercises   Boolean    @default(true) //bài tập nghe
   darkMode             String     @default("dark") //chế độ tối
   role                 String     @default("user") //vai trò
+  xpHistory            Json? //lịch sử nhận điểm kinh nghiệm
   progress             Progress[] //tiến độ
   createdAt            DateTime   @default(now()) //ngày tạo
   updatedAt            DateTime   @updatedAt //ngày cập nhật

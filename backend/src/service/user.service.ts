@@ -200,12 +200,43 @@ export const addXp = async (userId: string, xp: number) => {
     newStreak = 1;
   }
 
+  // Tính ngày hiện tại theo giờ Việt Nam (UTC+7)
+  const offset = 7 * 60 * 60 * 1000;
+  const localTime = new Date(now.getTime() + offset);
+  const dateStr = localTime.toISOString().split('T')[0]; // Định dạng: YYYY-MM-DD
+
+  // Đọc lịch sử XP hiện tại
+  let currentHistory: Array<{ date: string; xp: number }> = [];
+  if (user.xpHistory) {
+    try {
+      currentHistory = Array.isArray(user.xpHistory) 
+        ? (user.xpHistory as any) 
+        : JSON.parse(user.xpHistory as string);
+    } catch (e) {
+      currentHistory = [];
+    }
+  }
+
+  // Cập nhật XP cho ngày hôm nay
+  const todayRecordIdx = currentHistory.findIndex(item => item.date === dateStr);
+  if (todayRecordIdx !== -1) {
+    currentHistory[todayRecordIdx].xp += xp;
+  } else {
+    currentHistory.push({ date: dateStr, xp });
+  }
+
+  // Giới hạn lưu trữ 14 bản ghi gần nhất
+  if (currentHistory.length > 14) {
+    currentHistory = currentHistory.slice(-14);
+  }
+
   const updatedUser = await prisma.user.update({
     where: { id: userId },
     data: {
       xp: user.xp + xp,
       lastActive: now,
-      streak: newStreak
+      streak: newStreak,
+      xpHistory: currentHistory
     }
   });
 

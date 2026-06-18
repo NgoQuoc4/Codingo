@@ -2,6 +2,20 @@
 // File này đóng vai trò như một cơ sở dữ liệu tạm thời (in-memory) phục vụ chạy giao diện frontend độc lập không cần backend.
 import { User } from '../../context/AuthContext';
 
+// Helper sinh lịch sử XP 7 ngày gần đây làm giả lập
+const generateMockXpHistory = () => {
+  const result = [];
+  const now = new Date();
+  const offset = 7 * 60 * 60 * 1000;
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(now.getTime() - i * 24 * 60 * 60 * 1000 + offset);
+    const dateStr = d.toISOString().split('T')[0];
+    const xp = Math.floor(Math.random() * 25) + 5; // random từ 5 -> 30 XP
+    result.push({ date: dateStr, xp });
+  }
+  return result;
+};
+
 // 1. Khởi tạo danh sách người dùng giả lập ban đầu (gồm học viên và quản trị viên)
 export const mockUsers: User[] = [
   {
@@ -20,6 +34,7 @@ export const mockUsers: User[] = [
     listeningExercises: true,
     darkMode: 'dark',
     role: 'user', // Vai trò học viên thường
+    xpHistory: generateMockXpHistory(),
   },
   {
     id: 'admin-id-1',
@@ -37,8 +52,33 @@ export const mockUsers: User[] = [
     listeningExercises: true,
     darkMode: 'dark',
     role: 'admin', // Vai trò quản trị viên hệ thống
+    xpHistory: generateMockXpHistory(),
   }
 ];
+
+// Helper cộng dồn XP giả lập ở mock database
+export const addMockXp = (user: User, amount: number) => {
+  user.xp += amount;
+
+  const now = new Date();
+  const offset = 7 * 60 * 60 * 1000;
+  const localTime = new Date(now.getTime() + offset);
+  const dateStr = localTime.toISOString().split('T')[0];
+
+  if (!user.xpHistory) {
+    user.xpHistory = [];
+  }
+  const todayRecordIdx = user.xpHistory.findIndex((item: any) => item.date === dateStr);
+  if (todayRecordIdx !== -1) {
+    user.xpHistory[todayRecordIdx].xp += amount;
+  } else {
+    user.xpHistory.push({ date: dateStr, xp: amount });
+  }
+
+  if (user.xpHistory.length > 14) {
+    user.xpHistory = user.xpHistory.slice(-14);
+  }
+};
 
 // Giả lập phiên đăng nhập hiện tại bằng cách lưu giữ thông tin user và token trong bộ nhớ RAM
 export let activeSessionUser: User = mockUsers[0];

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { mockPractices, mockProgress, helper } from '../../../mockDb';
+import { mockPractices, mockProgress, helper, addMockXp } from '../../../mockDb';
 
 // API POST /api/lessons/:id/complete - Hoàn thành một bài học (cộng XP, cập nhật streak, lưu tiến độ)
 export async function POST(req: Request, { params }: { params: Promise<{ id: string }> }) {
@@ -89,7 +89,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
     const xpReward = 15;
     user.streak = newStreak;
     user.lastActive = now.toISOString();
-    user.xp += xpReward;
+    addMockXp(user, xpReward);
 
     return NextResponse.json({
       message: 'Lesson completed successfully',
